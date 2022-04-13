@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="12"/>
     <PathDelim Value="\"/>
     <General>
       <Flags>
         <LRSInOutputDirectory Value="False"/>
+        <CompatibilityMode Value="True"/>
       </Flags>
-      <MainUnit Value="0"/>
       <Title Value="mht2htm"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
@@ -21,7 +21,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="8"/>
       <RevisionNr Value="1"/>
-      <BuildNr Value="34"/>
+      <BuildNr Value="35"/>
       <StringTable CompanyName="Goran Atanasijevic" InternalName="mht2htm" LegalCopyright="GNU GPL" OriginalFilename="mht2htm.exe" ProductName="mht2htm" ProductVersion="1.8"/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -29,15 +29,19 @@
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <IgnoreBinaries Value="False"/>
-      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
-      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
     </PublishOptions>
     <RunParams>
       <local>
-        <FormatVersion Value="1"/>
-        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default">
+          <local>
+            <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+          </local>
+        </Mode0>
+      </Modes>
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
@@ -48,7 +52,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="7">
+    <Units Count="5">
       <Unit0>
         <Filename Value="mht2htm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -89,12 +93,6 @@
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="c:\lazarus\lcl\include\control.inc"/>
-        <TopLine Value="743"/>
-        <CursorPos Y="747"/>
-        <UsageCount Value="2"/>
-      </Unit4>
-      <Unit5>
         <Filename Value="constants.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Constants"/>
@@ -103,136 +101,9 @@
         <CursorPos X="34" Y="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="markedtext.pas"/>
-        <UnitName Value="MarkedText"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="42" Y="63"/>
-        <UsageCount Value="220"/>
-      </Unit6>
+      </Unit4>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
-      <Position1>
-        <Filename Value="main.pas"/>
-        <Caret Line="783" TopLine="771"/>
-      </Position1>
-      <Position2>
-        <Filename Value="main.pas"/>
-        <Caret Line="522" TopLine="503"/>
-      </Position2>
-      <Position3>
-        <Filename Value="main.pas"/>
-        <Caret Line="512" Column="57" TopLine="496"/>
-      </Position3>
-      <Position4>
-        <Filename Value="main.pas"/>
-      </Position4>
-      <Position5>
-        <Filename Value="mechanism.pas"/>
-        <Caret Line="4" Column="95"/>
-      </Position5>
-      <Position6>
-        <Filename Value="mechanism.pas"/>
-        <Caret Line="1861" Column="11" TopLine="1832"/>
-      </Position6>
-      <Position7>
-        <Filename Value="mechanism.pas"/>
-        <Caret Line="2838" TopLine="2812"/>
-      </Position7>
-      <Position8>
-        <Filename Value="mechanism.pas"/>
-        <Caret Line="2932" Column="26" TopLine="2909"/>
-      </Position8>
-      <Position9>
-        <Filename Value="mechanism.pas"/>
-        <Caret Line="1861" Column="10" TopLine="1842"/>
-      </Position9>
-      <Position10>
-        <Filename Value="mechanism.pas"/>
-        <Caret Line="2932" Column="26" TopLine="2900"/>
-      </Position10>
-      <Position11>
-        <Filename Value="languages.pas"/>
-        <Caret Line="3" Column="17"/>
-      </Position11>
-      <Position12>
-        <Filename Value="languages.pas"/>
-        <Caret Line="494" Column="73" TopLine="462"/>
-      </Position12>
-      <Position13>
-        <Filename Value="main.pas"/>
-        <Caret Line="6" Column="44"/>
-      </Position13>
-      <Position14>
-        <Filename Value="main.pas"/>
-        <Caret Line="628" Column="13" TopLine="605"/>
-      </Position14>
-      <Position15>
-        <Filename Value="main.pas"/>
-        <Caret Line="652" Column="28" TopLine="643"/>
-      </Position15>
-      <Position16>
-        <Filename Value="main.pas"/>
-        <Caret Line="788" Column="6" TopLine="759"/>
-      </Position16>
-      <Position17>
-        <Filename Value="main.pas"/>
-        <Caret Line="853" TopLine="830"/>
-      </Position17>
-      <Position18>
-        <Filename Value="main.pas"/>
-        <Caret Line="628" Column="13" TopLine="572"/>
-      </Position18>
-      <Position19>
-        <Filename Value="main.pas"/>
-        <Caret Line="357" Column="14" TopLine="278"/>
-      </Position19>
-      <Position20>
-        <Filename Value="main.pas"/>
-        <Caret Line="358" Column="14" TopLine="336"/>
-      </Position20>
-      <Position21>
-        <Filename Value="main.pas"/>
-        <Caret Line="359" Column="14" TopLine="337"/>
-      </Position21>
-      <Position22>
-        <Filename Value="main.pas"/>
-        <Caret Line="360" Column="14" TopLine="338"/>
-      </Position22>
-      <Position23>
-        <Filename Value="main.pas"/>
-        <Caret Line="38" Column="46" TopLine="25"/>
-      </Position23>
-      <Position24>
-        <Filename Value="main.pas"/>
-        <Caret Line="526" Column="19" TopLine="522"/>
-      </Position24>
-      <Position25>
-        <Filename Value="main.pas"/>
-        <Caret Line="340" Column="21" TopLine="332"/>
-      </Position25>
-      <Position26>
-        <Filename Value="main.pas"/>
-        <Caret Line="539" Column="19" TopLine="535"/>
-      </Position26>
-      <Position27>
-        <Filename Value="main.pas"/>
-        <Caret Line="335" Column="76" TopLine="333"/>
-      </Position27>
-      <Position28>
-        <Filename Value="main.pas"/>
-        <Caret Line="525" Column="54" TopLine="525"/>
-      </Position28>
-      <Position29>
-        <Filename Value="main.pas"/>
-        <Caret Line="341" Column="58" TopLine="329"/>
-      </Position29>
-      <Position30>
-        <Filename Value="mechanism.pas"/>
-        <Caret Line="59" Column="84" TopLine="41"/>
-      </Position30>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
@@ -275,7 +146,6 @@
     </Linking>
     <Other>
       <Verbosity>
-        <ShowGenInfo Value="False"/>
         <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
         <ShowHintsForSenderNotUsed Value="True"/>
       </Verbosity>
@@ -287,14 +157,4 @@
       <CreateMakefileOnBuild Value="True"/>
     </Other>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="2">
-      <Item1>
-        <Name Value="ECodetoolError"/>
-      </Item1>
-      <Item2>
-        <Name Value="EFOpenError"/>
-      </Item2>
-    </Exceptions>
-  </Debugging>
 </CONFIG>

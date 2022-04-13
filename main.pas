@@ -35,7 +35,7 @@ uses
   {$ENDIF}
   Classes, SysUtils, LResources, Forms, Controls, Dialogs, Grids,
   StdCtrls, ComCtrls, ExtCtrls, Menus , LCLIntf, Process,
-  mechanism, languages, Constants, fileutil, Clipbrd;
+  mechanism, languages, Constants, fileutil, Clipbrd, lazfileutils, lazutf8;
 
 
      
