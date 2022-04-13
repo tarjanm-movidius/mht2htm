@@ -1,0 +1,137 @@
+mht2htm Changelog
+
+1.8.1 05.apr.2016 [STABLE]
+
+Win32 (GUI and command line), Linux (GUI and command line), source
+Compiled with Lazarus 1.4.4 and Free Pascal 2.6.4
+All executables are compressed with UPX 3.09 <http://upx.sourceforge.net>
+
+Major changes (GUI)
+-------------
+Drag&Drop support added. You can now drag files from file browser or other application and drop them in mht2htm form. Files will be added to the list. Files can be dropped anywhere on the form. Dropped directories will be ignored. If conversion is in progress new files will not be accepted.
+App will not stop/pause if target directory exists but will add number after directory name (e.g. "..._Files (1)", "(2)", "(3)"... )
+Unicode support for Windows with other code pages (for SourceDir, OutputDir and MHT file name).
+In case that OutputDir can't be created (when user don't have permission to create dir or from some other reason) or selected input file format is wrong (unsupported format, non-mht file selected) then the program will not stop and show error message any more. Instead a error message will be added to the row in History list.
+
+Major changes (CLI)
+-------------
+App will not skip file if target directory exists but will add number after directory name (e.g. "..._Files (1)", "(2)", "(3)"... )
+Unicode support for Windows with other code pages.
+Added support for masks in file name (e.g. -sf:"c:\My Folder\*.mht;*.mhtml;*.eml" will add all matching files)
+
+Minor changes and fixes
+-------------
+Changed _0_start_me.htm page style
+Directories excluded from files list.
+Fixed error on invalid file date/time format
+SizeAll and SizeRem changed to QWord (in case someone is bulk converting more then 4GB)erting more then 4GB)
+
+1.7.7.x 19.dec.2012[STABLE]
+
+Win32 (GUI and command line), Linux (GUI and command line), source
+Compiled with Lazarus 1.04 and Free Pascal 2.6.0
+
+All executables are compressed with UPX 3.08 <http://upx.sourceforge.net>
+
+Major changes
+-------------
+40-65% faster than v1.7.3.
+Add folder (all files from folder and subfolders matching mask are added to list).
+
+Minor changes
+-------------
+Change "Add .mht files" to "Add files".
+Updated top domain list.
+Updated mime types list.
+Changed icon.
+Improved some actions (open file/folder).
+Parameters & Executable insead CommandLine.
+Changed site address.
+Added online help.
+If "help" dir is not present then online help will be opened.
+
+
+1.7.3.15 16.apr.2011[TEST/BETA]
+
+Win32 (GUI and command line), Linux (GUI and command line), source
+Compiled with Lazarus 9.30 and Free Pascal 2.4.2
+
+All executables are compressed with UPX 3.03 <http://upx.sourceforge.net>
+
+Added command line version (mht2htmcl).
+Units rewritened and are same for GUI and cl version.
+Changed icon (on an Ukrainian forum I found comment that old icon in Win95 style)
+
+
+1.6.6.20 31.jun.2008[RC]
+
+Win32, Linux (GTK and GTK2), source
+Compiled with Lazarus 0.9.24 and Free Pascal 2.2.0 for Win32
+Compiled with Lazarus 0.9.24 and Free Pascal 2.2.0 for Linux
+All executables are compressed with UPX 3.03 <http://upx.sourceforge.net>
+
+Shifted from BETA to RC
+Added better support for .eml (mail: IE, Thunderbird,...), .msg (SOHO mail server) .nws (news) files.
+(Lazarus mailing list used as source of thousands mails from different mail clients. Find about this mailing list at lazarus.freepascal.org)
+Tested with lot of OpenSource CMSs, blogs, forums, galleries, wikies... (Thanks to www.opensourcecms.com for collecting them on one place)
+Further improvement of file types recognition. 
+Smaller executables (credits to FPC and UPX).
+25% faster then v1.6.0.3
+Three info files mht2htm is making for each mht are now named: _0_start_me.htm, _1_info.nfo and _2_debug.nfo. Attempt to make them first in directory in any OS.
+Start file now showing (if selected) much more informations about .mht files and theit parts.
+
+1.6.0.3 04.oct.2007[BETA]
+
+Win32, Linux (GTK and GTK2), source
+Compiled with Lazarus 9.20 and Free Pascal 2.0.4 for Win32
+Compiled with Lazarus 9.22 and Free Pascal 2.0.4 for Linux
+All executables are compressed with UPX 3.01 <http://upx.sourceforge.net>
+
+License changed to GNU GPLv3.
+Most of functions are rewritten.
+Changed about 60, maybe 80% of code.
+10% faster then v1.5.0.10 (tested on sample of 187 mht files saved with IE, ~23.7MB).
+Now work with .mht files saved with:
+	-IE
+	-Opera
+	-Firefox
+	-EZ save MHT
+	-html2mhtml (open source MHT creator)
+	-SavePage (command line)
+	-email .eml files, it was not ment to work with but as this files have simular structure as .mht file mht2htm can, more or less succesful, to extract mail parts and show them in any browser. Tested OutlookExpres and SeaMonkey mail clients.
+Tested with same of most used CMSs, blogs, forums and popular sites. 
+{I'm still looking for .mht files (examples I can examine) saved with Safari and Konqueror.}
+{No new languages - no one wanted to help :( }
+{Main function is now recursive (I'm forgot why I did that but I'm sure I had some reason).}
+
+
+1.5.0.10 6.apr.2007.[BETA]
+
+Win32, Linux (GTK and GTK2), source
+Compiled with Lazarus 9.20 and Free Pascal 2.0.4 for Win32
+Compiled with Lazarus 9.22 and Free Pascal 2.0.4 for Linux
+
+Improved recognition of file types (4 unrecognized files out of about 34000)
+Added multilingual mechanism
+Serbian translation
+Fixed some minor bugs with form resizing
+Arrays of strings replaced with lists of strings
+Added (fixed) reading addresses in more then one line
+Added (fixed) conversion when there is only one file in mht
+Fixed bug with locked mht files until program exits (um... someone didn't close files)
+Added comments for status bar.
+File size in bytes instead of kilobytes.
+Fixed estimated time after program is stopped/paused.
+Better help.
+
+
+1.5.0.7 1.apr.2007.[BETA]
+
+Win32, Linux (GTK and GTK2), source
+Compiled with Lazarus 9.20 and Free Pascal 2.0.4
+
+First release and first Lazarus version
+
+
+Goran Atanasijevic
+<bajaatan@yahoo.com>

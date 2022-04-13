@@ -1,0 +1,58 @@
+mht2htm v1.8.1 README
+
+mht2htm converts .mht files into common .html file.
+
+Coded with Lazarus 1.4.4 and Free Pascal 2.6.4
+
+   Copyright (C) 2004,2007,2011 Goran Atanasijevic
+   All Rights Reserved.
+
+    mht2htm is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or
+    (at your option) any later version.
+
+    mht2htm is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+   Download from http://mht2htm.sourceforge.net
+   Homepage http://pgm.bpalanka.com
+
+
+Short short help.
+
+mht2htm (win32 or *nix version) is stand alone executable program. mht2htm don't use any ini file and don't store settings anywhere. All files you find with main program file are optional and are not required for normal work.
+
+Instalation is easy: create directory, copy mht2htm[.exe] in directory and start it (For *nix: You must have right to execute from that dir. It may be your home dir).
+
+Short tutorial:
+
+1. Add mht files you want to convert. (You can use multiple selections. Files already in list will not be added twice).
+
+2. Select Output dir or check "same dir". (Empty field "Output dir" is same as you checked "same dir")
+
+3. Adjust level of address searching. Leave at best if you don't have special requests.
+
+4. Press "Start" and watch progress.
+
+You can pause process. Program will finish conversion of started file and then will stop.
+
+After that you can pres Cont. to process rest of files from list.
+
+History will show all translated files in list. Right click will pop-up menu. From there you can open mht or htm file (optional you can choose web browser to open with. Not on all systems)
+
+All extracted files (from one mht) are in one directory. Every translated mht have own directory.
+
+There are no subdirectories.
+
+_0_start_me_0.htm is file you should start in every of directories. Purpose of this file is to point to main page.
+
+
+Goran Atanasijevic
+<bajaatan@yahoo.com>

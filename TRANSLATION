@@ -1,0 +1,203 @@
+mht2htm New translation form
+
+This file contains all stings used in program.
+If you wish you can localize strings to your language.
+Change only strings beetwen apostrophes (e.g. for first string change only 'Files to convert:').
+Commented test in (after //) is in English (you do not need to change it).
+
+If you wish you can translate help.
+
+    //language 0=English
+
+           'Files to convert:', //[i,1]Files to convert:
+           'Converted files:',  //[i,2]Converted files:
+           'File',              //[i,3]File
+           'Size',              //[i,4]Size
+           'Directory',         //[i,5]Dir
+           'MHT file',          //[i,6]MHT file
+           'HTM file',          //[i,7]HTM file
+           'of',                //[i,8]of (in 0 of 0 .mht file(s))
+           '.mht files',        //[i,9].mht files
+           'files',             //[i,10]files
+           'Estimated time',    //[i,11]Estimated time
+           'passed',            //[i,12]passed
+           'remaining',         //[i,13]remaining
+           '...wait...',        //[i,14]...wait...
+           'Options',           //[i,15]Options
+           'Level 0 of address correcting (none)',    //[i,16]Level 0 of address correcting (none)
+           'Level 1 of address correcting (fast)',    //[i,17]Level 1 of address correcting (fast)
+           'Level 2 of address correcting (balanced)',//[i,18]Level 2 of address correcting (balanced)
+           'Level 3 of address correcting (good)',    //[i,19]Level 3 of address correcting (good)
+           'Level 4 of address correcting (best)',    //[i,20]Level 4 of address correcting (best)
+           '***reserved***',    //[i,21]
+           '***reserved***',    //[i,22]
+           '***reserved***',    //[i,23]
+           'Create mega.nfo',                   //[i,24]Create mega.nfo
+           '&Add files',                   //[i,25]Add .mht files
+           '&Remove from list',                    //[i,26]Remove from list
+           '&Start',                   //[i,27]Start
+           '&Stop',                    //[i,28]Stop
+           '&Pause',                   //[i,29]Pause
+           '&Continue',                    //[i,30]Continue
+           '&History',                   //[i,31]History
+           '&Back',                   //[i,32]Back
+           '&Help',                   //[i,33]Help
+           'done',                   //[i,34]done
+           'paused',                   //[i,35]paused
+           '&Output dir',                    //[i,36]Output dir
+           'use same directory as .mht file',                   //[i,37]use same directory as .mht file
+           'Site ',                    //[i,38]Site+space
+           'Coder:',                   //[i,39]Coder
+           'Planer: v',                    //[i,40]Planer v
+           'Coded with Lazarus',                   //[i,41]Coded with Lazarus
+           'quoted-printable = text file',                   //[i,42]quoted-printable = text bile
+           'base64 = binary file',                   //[i,43]base64 = binary file
+
+           'Total',                   //[i,44]Total
+           'files.',                   //[i,45]files.
+           'Generated with',                    //[i,46]Generated with
+           'Author',                   //[i,47]Author
+           'Check for new version',                    //[i,48]Check for new version
+           'Click here to open page',                   //[i,49]Click here to open page
+           'Files original locations',                    //[i,50]Files original locations
+           'Original location\name',                   //[i,51]Original location\name
+           'File type',                   //[i,52]File type
+           'New location\name',                   //[i,53]New location\name
+           'Encoding',                   //[i,54]Encoding
+
+           'Click here to add mht files to list.',                   //[i,55]Click here to add mht files to list.
+           'Click here to remove selected mht file from list.',                   //[i,56]Click here to remove selected mht file from list.
+           'Convert all files from list.',                   //[i,57]Convert all files from list.
+           'Convert rest of files from list.',                   //[i,58]Convert rest of files from list.
+           'Stop conversion (current file will be finished).',                   //[i,59]Stop conversion (current file will be finished).
+           'Pause conversion (current file will be finished, do not affect mega.nfo).',                   //[i,60]Pause conversion (current file will be finished, do not affect mega.nfo).
+           'Show list of converted files.',                   //[i,61]Show list of converted files.
+           'Show list of files not yet converted.',                   //[i,62]Show list of files not yet converted.
+           'Open help page.',                   //[i,63]Open help page.
+           'Enter oputput dir (for all files). Or select one using button to the right.',                   //[i,64]Enter oputput dir (for all files). Or select one using button to the right.
+           'Select oputput dir (for all files).',                   //[i,65]Select oputput dir (for all files).
+           'Check if you want to store in same dir(s) where mht files are.',                    //[i,66]Check if you want to store in same dir(s) where mht files are.
+           'Visit mht2htm homepage.',                   //[i,67]Visit mht2htm homepage.
+           'Send me mail.',                   //[i,68]Send me mail.
+           'Visit Lazarus homepage.',                   //[i,69]Visit Lazarus homepage.
+           'List of converted files. Right mouse button for pop-up menu.',                   //[i,70]List of converted files. Right mouse button for pop-up menu.
+           'List of files to convert.',                   //[i,71]List of files to convert.
+           'Select how hard will mht2htm try to replace addresses with local ones. 0=do not try. 4=very hard.',                   //[i,72]How hard will mht2htm try to replace addresses with local ones. 0=do not try. 4=very hard.
+           'Create mega.nfo file with all addresses from all files (for use in other programs, usualy with address correcting set to 0).',                   //[i,73]Create mega.nfo file with all addresses from all files (for use in other programs, usualy with address correcting set to 0).
+           'Language/Jezik/...',                   //[i,74]Language/Jezik/... **should contain in all languages
+           'bytes',                   //[i,75]bytes
+           'Open HTM file',                   //[i,76]Open HTM file
+           'Open MHT file',                   //[i,77]Open MHT file
+           'Open HTM dir',                    //[i,78]Open HTM dir
+           'Close History',                    //[i,79]Close History
+           'Select browser',                   //[i,80]Select browser
+
+           'Not a real file but header for two or more alternative content formats',                   //[i,81]Not a real file but header for two or more alternative content formats
+           'EZ Save MHT (an IE add-on)',                   //[i,82]EZ Save MHT (an IE add-on)
+           'MAF MHT Archive Handler (an Mozilla add-on)',                   //[i,83]MAF MHT Archive Handler (an Mozilla add-on)
+           'Microsoft Internet Explorer',                   //[i,84]Microsoft Internet Explorer
+           'SavePage (command line MHT creator)',                   //[i,85]SavePage (command line MHT creator)
+           'Opera (maybe)',                   //[i,86]Opera (maybe)
+           'html2mhtml (open source MHT creator)',                   //[i,87]html2mhtml (open source MHT creator)
+           '(not sure)',                   //[i,88](not sure)
+           'mht2htm program version is',                   //[i,89]mht2htm program version is
+           'Converted on',                   //[i,90]Converted on
+           'MHT file saved on',                   //[i,91]MHT file saved on
+           'MHT file created with',                   //[i,92]MHT file created with
+           'MHT file size is',                   //[i,93]MHT file size is
+           'bytes',                   //[i,94]bytes
+           'MHT file contains',                   //[i,95]MHT file contains
+           'parts',                   //[i,96]parts
+           'of that are files',                   //[i,97]of that are files
+           ': not a file',                   //[i,98]: not a file
+           'converted for',                   //[i,99]converted for
+           'seconds',                   //[i,100]seconds
+
+
+           'Detailed:',                   //[i,101]Detailed:
+           'MHT file:',                   //[i,102]MHT file:
+           'From:',                   //[i,103]From:
+           'Subject:',                   //[i,104]Subject:
+           'Date:',                   //[i,105]Date:
+           'Importance:',                   //[i,106]Importance:
+           'Priority:',                   //[i,107]Priority:
+           'Content-Type:',                   //[i,108]Content-Type:
+           'Type:',                   //[i,109]Type:
+           'MIME-Version:',                   //[i,110]MIME-Version:
+           'start (file):',                   //[i,111]start (file):
+           'Content-Location:',                   //[i,112]Content-Location:
+           'Content-Transfer-Encoding:',                   //[i,113]Content-Transfer-Encoding:
+           'Charset:',                   //[i,114]Charset:
+           'Product:',                   //[i,115]Product:
+           'X-MAF:',                   //[i,116]X-MAF:
+           'X-MIME:',                   //[i,117]X-MIME:
+           'thread_index:',                   //[i,118]thread_index:
+           'Content-Class:',                   //[i,119]Content-Class:
+           'Parts',                   //[i,120]Parts
+           'Boundary ',                   //[i,121]Boundary
+
+
+           'Part ',                   //[i,122] Part_
+           'Content-Type:',                   //[i,123] Content-Type:
+
+           'Charset:',                   //[i,124] Charset:
+           'Content-Transfer-Encoding:',                   //[i,125] Content-Transfer-Encoding:
+           'Content-Location:',                   //[i,126] Content-Location:
+           'Content-ID:',                   //[i,127] Content-ID:
+           'Content-Disposition:',                   //[i,128] Content-Disposition:
+           'Filename:',                   //[i,129] Filename:
+           'Name:',                   //[i,130] Name:
+           'Start line:',                   //[i,131] Start line:
+           'End line:',                   //[i,132] End line:
+           'Alternative:',                   //[i,133] Alternative:
+
+           'Internal data:',                   //[i,134] Internal data:
+           'Absolute (full) path:',                   //[i,135] Absolute (full) path:
+           'Unchanged filename:',                   //[i,136] Unchanged filename:
+           'Saved as (local filename):',                   //[i,137] Saved as (local filename):
+           'Encoding:',                   //[i,138] Encoding:
+           'Recognized as:',                   //[i,139] Recognized as:
+           'File final extension:',                   //[i,140] File final extension:
+           'File size:',                   //[i,141] File size:
+           'Open this file for preview:',                   //[i,142] Open this file for preview:
+           'here',                   //[i,143] here
+           'or',                   //[i,144] or
+           'in new tab/window',                   //[i,145] in new tab/window
+
+           'Select how much details about mht file will mht2htm write. 1=few, 3=lot.',                   //[i,146]Select how much details about mht file will mht2htm write. 1=few, 3=lot.
+
+           'Directory exists!',                   //[i,147]Directory exists!
+           'Target directory already exists and will not be overwriten.'+chr(13)+'To continue remove target dir or mht file from list and press Start again',                   //[i,148]Target directory already exists and will not be overwriten.'+chr(13)+'To continue remove target dir or mht file from list and press Start again
+
+           'Detail level 1 (low)',                   //[i,149]Detail level 1 (low)
+           'Detail level 2 (medium)',                   //[i,150]Detail level 2 (medium)
+           'Detail level 3 (high)',                   //[i,151]Detail level 3 (high)
+           'ERROR - Structure of this mht file is not good.', //[i,152]Structure of this mht file is not good.
+           'File not found. If you know that file exists try to rename it. ', //[i,153]File not found. If you know that file exists try to rename it.
+           'Add folder', //[i,154]
+           'Find all mht files in selected folder and all subfolders and add them to list', //[i,155]
+           '&OK', //[i,156]
+           '&Cancel', //[i,157]
+           'Filter', //[i,158]
+           'Select all files from folder (including all subfolders) matching filter. Use single filter at time.', //[i,158]
+           'en',  //[i,160]en country code, used for help
+           'recursively search sub directories', // [i,161] recursively search sub directories
+           'Add files', // [i,162] Add files
+           'Do you wish to add ', // [i,163] Do you wish to add
+           ' files to the list?', // [i,164] files to the list?
+           'File/Directory creation error', // [i,165] File/Directory creation error
+           'mht2htm didn''t succeed to create target file or directory. Please check if you have sufficient permissions over target directory.', // [i,166] mht2htm didn''t succeed to create target file or directory. Please check if you have sufficient permissions over target directory.
+           'Invalid date format', // [i,167] Invalid date format
+           'ERROR - can''t create ouptut directory!', // [i,168] ERROR - can''t create ouptut directory!
+           ' files couldn''t be processed. Errors can be found in History list.' // [i,169] files couldn''t be processed. Errors can be found in History list.
+
+
+Your name:
+email:
+
+Send translation to:
+
+Goran Atanasijevic
+<bajaatan@yahoo.com>
+
+Thanks
