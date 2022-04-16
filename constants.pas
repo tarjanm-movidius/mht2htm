@@ -27,110 +27,110 @@ interface
 
 const
      //program version etc.
-     PVer='1.8.1';
-     PDat='05.apr.2016.';
-     PExtra=' ('+{$I %FPCTARGETOS }+' '+{$i %FPCTARGETCPU%}+')';
-     PMyMail='mailto:bajaatan@yahoo.com';
-     PMySite='http://pgm.bpalanka.com';
-     
+  PVer='1.8.2';
+  PDat='16.apr.2022.';
+  PExtra=' ('+{$I %FPCTARGETOS }+' '+{$i %FPCTARGETCPU%}+')';
+  PMyMail='mailto:bajaatan@yahoo.com';
+  PMySite='http://pgm.bpalanka.com';
 
-     MaxFilenameLength=60; //limit filename length to avoid stupid truncation
+
+  MaxFilenameLength=60; //limit filename length to avoid stupid truncation
                            //NOTE: filename can be few characters longer then this value
-     MaxFileExtensionLength=10;
+  MaxFileExtensionLength=10;
 
     //some specific strings
-    utf8_file_header = #239#187#191;
-    unicode_file_header = chr(255)+ chr(254);
+  utf8_file_header = #239#187#191;
+  unicode_file_header = chr(255)+ chr(254);
 
      //domains, protocols... need this to determine absolute path
-     TopLevelDomainsCounter=324;
-     TopLevelDomains:array[1..TopLevelDomainsCounter]of string
+  TopLevelDomainsCounter=324;
+  TopLevelDomains:array[1..TopLevelDomainsCounter]of string
 
 
-     = (
-       '.aero', '.asia', '.biz', '.cat', '.com', '.coop', '.info',
-       '.int', '.jobs', '.mobi', '.museum', '.name', '.net', '.org',
-       '.pro', '.tel', '.travel', '.xxx',
-       '.edu', '.gov', '.mil',
-       '.arpa',
+  = (
+  '.aero', '.asia', '.biz', '.cat', '.com', '.coop', '.info',
+  '.int', '.jobs', '.mobi', '.museum', '.name', '.net', '.org',
+  '.pro', '.tel', '.travel', '.xxx',
+  '.edu', '.gov', '.mil',
+  '.arpa',
 
-       '.root', '.cs', '.zr', '.dd', '.su', '.local', '.site',
-       '.internal', '.post', '.sx', '.nato',
+  '.root', '.cs', '.zr', '.dd', '.su', '.local', '.site',
+  '.internal', '.post', '.sx', '.nato',
 
-       '.ac', '.ad', '.ae', '.af', '.ag', '.ai', '.al', '.am', '.an',
-       '.ao', '.aq', '.ar', '.as', '.at', '.au', '.aw', '.ax', '.az',
-       '.ba', '.bb', '.bd', '.be', '.bf', '.bg', '.bh', '.bi', '.bj',
-       '.bm', '.bn', '.bo', '.br', '.bs', '.bt', '.bv', '.bw', '.by',
-       '.bz', '.ca', '.cc', '.cd', '.cf', '.cg', '.ch', '.ci', '.ck',
-       '.cl', '.cm', '.cn', '.co', '.cr', '.cs', '.cu', '.cv', '.cx',
-       '.cy', '.cz', '.dd', '.de', '.dj', '.dk', '.dm', '.do', '.dz',
-       '.ec', '.ee', '.eg', '.eh', '.er', '.es', '.et', '.eu', '.fi',
-       '.fj', '.fk', '.fm', '.fo', '.fr', '.ga', '.gb', '.gd', '.ge',
-       '.gf', '.gg', '.gh', '.gi', '.gl', '.gm', '.gn', '.gp', '.gq',
-       '.gr', '.gs', '.gt', '.gu', '.gw', '.gy', '.hk', '.hm', '.hn',
-       '.hr', '.ht', '.hu', '.id', '.ie', '.il', '.im', '.in', '.io',
-       '.iq', '.ir', '.is', '.it', '.je', '.jm', '.jo', '.jp', '.ke',
-       '.kg', '.kh', '.ki', '.km', '.kn', '.kp', '.kr', '.kw', '.ky',
-       '.kz', '.la', '.lb', '.lc', '.li', '.lk', '.lr', '.ls', '.lt',
-       '.lu', '.lv', '.ly', '.ma', '.mc', '.md', '.me', '.mg', '.mh',
-       '.mk', '.ml', '.mm', '.mn', '.mo', '.mp', '.mq', '.mr', '.ms',
-       '.mt', '.mu', '.mv', '.mw', '.mx', '.my', '.mz', '.na', '.nc',
-       '.ne', '.nf', '.ng', '.ni', '.nl', '.no', '.np', '.nr', '.nu',
-       '.nz', '.om', '.pa', '.pe', '.pf', '.pg', '.ph', '.pk', '.pl',
-       '.pm', '.pn', '.pr', '.ps', '.pt', '.pw', '.py', '.qa', '.re',
-       '.ro', '.rs', '.ru', '.rw', '.sa', '.sb', '.sc', '.sd', '.se',
-       '.sg', '.sh', '.si', '.sj', '.sk', '.sl', '.sm', '.sn', '.so',
-       '.sr', '.ss', '.st', '.su', '.sv', '.sx', '.sy', '.sz', '.tc',
-       '.td', '.tf', '.tg', '.th', '.tj', '.tk', '.tl', '.tm', '.tn',
+  '.ac', '.ad', '.ae', '.af', '.ag', '.ai', '.al', '.am', '.an',
+  '.ao', '.aq', '.ar', '.as', '.at', '.au', '.aw', '.ax', '.az',
+  '.ba', '.bb', '.bd', '.be', '.bf', '.bg', '.bh', '.bi', '.bj',
+  '.bm', '.bn', '.bo', '.br', '.bs', '.bt', '.bv', '.bw', '.by',
+  '.bz', '.ca', '.cc', '.cd', '.cf', '.cg', '.ch', '.ci', '.ck',
+  '.cl', '.cm', '.cn', '.co', '.cr', '.cs', '.cu', '.cv', '.cx',
+  '.cy', '.cz', '.dd', '.de', '.dj', '.dk', '.dm', '.do', '.dz',
+  '.ec', '.ee', '.eg', '.eh', '.er', '.es', '.et', '.eu', '.fi',
+  '.fj', '.fk', '.fm', '.fo', '.fr', '.ga', '.gb', '.gd', '.ge',
+  '.gf', '.gg', '.gh', '.gi', '.gl', '.gm', '.gn', '.gp', '.gq',
+  '.gr', '.gs', '.gt', '.gu', '.gw', '.gy', '.hk', '.hm', '.hn',
+  '.hr', '.ht', '.hu', '.id', '.ie', '.il', '.im', '.in', '.io',
+  '.iq', '.ir', '.is', '.it', '.je', '.jm', '.jo', '.jp', '.ke',
+  '.kg', '.kh', '.ki', '.km', '.kn', '.kp', '.kr', '.kw', '.ky',
+  '.kz', '.la', '.lb', '.lc', '.li', '.lk', '.lr', '.ls', '.lt',
+  '.lu', '.lv', '.ly', '.ma', '.mc', '.md', '.me', '.mg', '.mh',
+  '.mk', '.ml', '.mm', '.mn', '.mo', '.mp', '.mq', '.mr', '.ms',
+  '.mt', '.mu', '.mv', '.mw', '.mx', '.my', '.mz', '.na', '.nc',
+  '.ne', '.nf', '.ng', '.ni', '.nl', '.no', '.np', '.nr', '.nu',
+  '.nz', '.om', '.pa', '.pe', '.pf', '.pg', '.ph', '.pk', '.pl',
+  '.pm', '.pn', '.pr', '.ps', '.pt', '.pw', '.py', '.qa', '.re',
+  '.ro', '.rs', '.ru', '.rw', '.sa', '.sb', '.sc', '.sd', '.se',
+  '.sg', '.sh', '.si', '.sj', '.sk', '.sl', '.sm', '.sn', '.so',
+  '.sr', '.ss', '.st', '.su', '.sv', '.sx', '.sy', '.sz', '.tc',
+  '.td', '.tf', '.tg', '.th', '.tj', '.tk', '.tl', '.tm', '.tn',
 
-       '.to', '.tp', '.tr', '.tt', '.tv', '.tw', '.tz', '.ua', '.ug',
-       '.uk', '.us', '.uy', '.uz', '.va', '.vc', '.ve', '.vg', '.vi',
-       '.vn', '.vu', '.wf', '.ws', '.ye', '.yt', '.yu', '.za', '.zm',
-       '.zw',
+  '.to', '.tp', '.tr', '.tt', '.tv', '.tw', '.tz', '.ua', '.ug',
+  '.uk', '.us', '.uy', '.uz', '.va', '.vc', '.ve', '.vg', '.vi',
+  '.vn', '.vu', '.wf', '.ws', '.ye', '.yt', '.yu', '.za', '.zm',
+  '.zw',
 
-       '.বাংলা', '.中国', '.中國', '.გე', '.香港', '.भारत', '.భారత్',
-       '.ભારત', '.ਭਾਰਤ', '.இந்தியா', '.ভারত', '.қаз', '.мон', '.рф',
-       '.срб', '.新加坡', '.சிங்கப்பூர்', '.한국', '.ලංකා', '.இலங்கை',
-       '.台湾', '.台灣', '.ไทย', '.укр', '.бг', '.ελ', '.日本', '.日本国',
-       '.ລາວ ', 'ليبيا.‎', '测试', '測試', 'испытание', 'परीक्षा',
-       'δοκιμή', '테스트', 'テスト', 'பரிட்சை'
-       );
-
-
-
+  '.বাংলা', '.中国', '.中國', '.გე', '.香港', '.भारत', '.భారత్',
+  '.ભારત', '.ਭਾਰਤ', '.இந்தியா', '.ভারত', '.қаз', '.мон', '.рф',
+  '.срб', '.新加坡', '.சிங்கப்பூர்', '.한국', '.ලංකා', '.இலங்கை',
+  '.台湾', '.台灣', '.ไทย', '.укр', '.бг', '.ελ', '.日本', '.日本国',
+  '.ລາວ ', 'ليبيا.‎', '测试', '測試', 'испытание', 'परीक्षा',
+  'δοκιμή', '테스트', 'テスト', 'பரிட்சை'
+  );
 
 
 
-     ProtocolsCounter=3;
-     Protocols:array[1..ProtocolsCounter]of string
-              = ('http://', 'ftp://', 'https://');
 
-     LocalProtocolsCounter=79;
-     LocalProtocols:array[1..LocalProtocolsCounter]of string
-              = (
-     'file://a:', 'file://b:', 'file://c:', 'file://d:', 'file://e:',
-     'file://f:', 'file://g:', 'file://h:', 'file://i:', 'file://j:',
-     'file://k:', 'file://l:', 'file://m:', 'file://n:', 'file://o:',
-     'file://p:', 'file://q:', 'file://r:', 'file://s:', 'file://t:',
-     'file://u:', 'file://v:', 'file://w:', 'file://x:', 'file://y:',
-     'file://z:',
-     'file:///a:', 'file:///b:', 'file:///c:', 'file:///d:', 'file:///e:',
-     'file:///f:', 'file:///g:', 'file:///h:', 'file:///i:', 'file:///j:',
-     'file:///k:', 'file:///l:', 'file:///m:', 'file:///n:', 'file:///o:',
-     'file:///p:', 'file:///q:', 'file:///r:', 'file:///s:', 'file:///t:',
-     'file:///u:', 'file:///v:', 'file:///w:', 'file:///x:', 'file:///y:',
-     'file:///z:',
-     'mhtml:file://a:', 'mhtml:file://b:', 'mhtml:file://c:', 'mhtml:file://d:',
-     'mhtml:file://e:', 'mhtml:file://f:', 'mhtml:file://g:', 'mhtml:file://h:',
-     'mhtml:file://i:', 'mhtml:file://j:', 'mhtml:file://k:', 'mhtml:file://l:',
-     'mhtml:file://m:', 'mhtml:file://n:', 'mhtml:file://o:', 'mhtml:file://p:',
-     'mhtml:file://q:', 'mhtml:file://r:', 'mhtml:file://s:', 'mhtml:file://t:',
-     'mhtml:file://u:', 'mhtml:file://v:', 'mhtml:file://w:', 'mhtml:file://x:',
-     'mhtml:file://y:', 'mhtml:file://z:',
-     'file://localhost');
-     
-     recognizedcount1=65;
-     recognized1:array[1..recognizedcount1,1..5]of string    // 'string',
+
+
+  ProtocolsCounter=3;
+  Protocols:array[1..ProtocolsCounter]of string
+  = ('http://', 'ftp://', 'https://');
+
+  LocalProtocolsCounter=79;
+  LocalProtocols:array[1..LocalProtocolsCounter]of string
+  = (
+  'file://a:', 'file://b:', 'file://c:', 'file://d:', 'file://e:',
+  'file://f:', 'file://g:', 'file://h:', 'file://i:', 'file://j:',
+  'file://k:', 'file://l:', 'file://m:', 'file://n:', 'file://o:',
+  'file://p:', 'file://q:', 'file://r:', 'file://s:', 'file://t:',
+  'file://u:', 'file://v:', 'file://w:', 'file://x:', 'file://y:',
+  'file://z:',
+  'file:///a:', 'file:///b:', 'file:///c:', 'file:///d:', 'file:///e:',
+  'file:///f:', 'file:///g:', 'file:///h:', 'file:///i:', 'file:///j:',
+  'file:///k:', 'file:///l:', 'file:///m:', 'file:///n:', 'file:///o:',
+  'file:///p:', 'file:///q:', 'file:///r:', 'file:///s:', 'file:///t:',
+  'file:///u:', 'file:///v:', 'file:///w:', 'file:///x:', 'file:///y:',
+  'file:///z:',
+  'mhtml:file://a:', 'mhtml:file://b:', 'mhtml:file://c:', 'mhtml:file://d:',
+  'mhtml:file://e:', 'mhtml:file://f:', 'mhtml:file://g:', 'mhtml:file://h:',
+  'mhtml:file://i:', 'mhtml:file://j:', 'mhtml:file://k:', 'mhtml:file://l:',
+  'mhtml:file://m:', 'mhtml:file://n:', 'mhtml:file://o:', 'mhtml:file://p:',
+  'mhtml:file://q:', 'mhtml:file://r:', 'mhtml:file://s:', 'mhtml:file://t:',
+  'mhtml:file://u:', 'mhtml:file://v:', 'mhtml:file://w:', 'mhtml:file://x:',
+  'mhtml:file://y:', 'mhtml:file://z:',
+  'file://localhost');
+
+  recognizedcount1=65;
+  recognized1:array[1..recognizedcount1,1..5]of string    // 'string',
                                                            // '.ext',
                                                            // 'col'={'', '1','2',...}; ''=anywhere
                                                            // 'row'={'', '1', '1-5',...}
@@ -141,78 +141,78 @@ const
                                                            // if col='' or '1' and row='' or '1' or '1-... and lowercase='l'
                                                            // then also check '﻿'+ and '=EF=BB=BF'+
 
-       =(
-           ('R0lGOD',                            '.gif', '1', '1',  ''),
+  =(
+  ('R0lGOD',                            '.gif', '1', '1',  ''),
             //R0lGODlh
             //R0lGODdh  exception
-           ('/9j/4',                             '.jpg', '1', '1',  ''),
-           ('iVBORw0K',                          '.png', '1', '1',  ''),
+  ('/9j/4',                             '.jpg', '1', '1',  ''),
+  ('iVBORw0K',                          '.png', '1', '1',  ''),
              //possible 'iVBORw0KGgoAAAANSUhEUgAA'
 
-           ('<!doctype html public',             '.htm', '', '',  'l'),
-           ('<html>',                            '.htm', '', '1',  'l'),
-           ('document.',                         '.js', '1', '1',  'l'),
-           ('d.',                                '.js', '1', '1',  'l'),
-           ('var ',                              '.js', '1', '1',  'l'),
-           ('body',                              '.css', '1', '1',  'l'),
-           ('html',                              '.css', '1', '1',  'l'),
+  ('<!doctype html public',             '.htm', '', '',  'l'),
+  ('<html>',                            '.htm', '', '1',  'l'),
+  ('document.',                         '.js', '1', '1',  'l'),
+  ('d.',                                '.js', '1', '1',  'l'),
+  ('var ',                              '.js', '1', '1',  'l'),
+  ('body',                              '.css', '1', '1',  'l'),
+  ('html',                              '.css', '1', '1',  'l'),
            //('*****not good***htm/js***<!-- ',    '.htm'),
-           ('<!doctype html',                    '.htm', '', '',  'l'),
+  ('<!doctype html',                    '.htm', '', '',  'l'),
 
-           ('function',                          '.js', '1', '1',  'l'),
-           ('(function',                         '.js', '1', '1',  'l'),
-           ('eval',                              '.js', '1', '1',  'l'),
-           ('//-- google analytics',             '.js', '1', '1',  'l'),
-           ('<!--',                              '.htm', '1', '1',  'l'), //.js, also can be html
-           ('if ',                               '.js', '1', '1',  'l'),
-           ('if(',                               '.js', '1', '1',  'l'),
-           ('RldT',                              '.swf', '1', '1',  ''), //
-           ('Q1dT',                              '.swf', '1', '1',  ''),
+  ('function',                          '.js', '1', '1',  'l'),
+  ('(function',                         '.js', '1', '1',  'l'),
+  ('eval',                              '.js', '1', '1',  'l'),
+  ('//-- google analytics',             '.js', '1', '1',  'l'),
+  ('<!--',                              '.htm', '1', '1',  'l'), //.js, also can be html
+  ('if ',                               '.js', '1', '1',  'l'),
+  ('if(',                               '.js', '1', '1',  'l'),
+  ('RldT',                              '.swf', '1', '1',  ''), //
+  ('Q1dT',                              '.swf', '1', '1',  ''),
 
-           ('/* css document */',                '.css', '1', '1',  'l'),
-           ('link',                              '.css', '1', '1',  'l'),
-           ('div#',                              '.css', '1', '1',  'l'),
-           ('div.',                              '.css', '1', '1',  'l'),
-           ('font',                              '.css', '1', '1',  'l'),
-           ('@import',                           '.css', '1', '1',  'l'),
-           ('@media',                            '.css', '1', '1',  'l'),
-           ('input#',                            '.css', '1', '1',  'l'),
-           ('window',                            '.css', '1', '1',  'l'), //window.
-           ('form',                              '.css', '1', '1',  'l'),
+  ('/* css document */',                '.css', '1', '1',  'l'),
+  ('link',                              '.css', '1', '1',  'l'),
+  ('div#',                              '.css', '1', '1',  'l'),
+  ('div.',                              '.css', '1', '1',  'l'),
+  ('font',                              '.css', '1', '1',  'l'),
+  ('@import',                           '.css', '1', '1',  'l'),
+  ('@media',                            '.css', '1', '1',  'l'),
+  ('input#',                            '.css', '1', '1',  'l'),
+  ('window',                            '.css', '1', '1',  'l'), //window.
+  ('form',                              '.css', '1', '1',  'l'),
 
-           ('AAABAAEA',                          '.ico', '1', '1',  ''),
-           ('AAABAAIA',                          '.ico', '1', '1',  ''),
-           ('AAABAAQA',                          '.ico', '1', '1',  ''),
+  ('AAABAAEA',                          '.ico', '1', '1',  ''),
+  ('AAABAAIA',                          '.ico', '1', '1',  ''),
+  ('AAABAAQA',                          '.ico', '1', '1',  ''),
 
 
 //           ('<HTML',                             '.htm', '1', '1',  'l'),
-           ('<html xml',                         '.htm', '1', '',  'l'),
-           ('<html',                             '.htm', '1', '',  'l'),   //
-           ('TVNDR',                             '.cab', '1', '1',  ''),
-           ('SVNjKAFSA',                         '.cab', '1', '1',  ''), //encoded cab?
+  ('<html xml',                         '.htm', '1', '',  'l'),
+  ('<html',                             '.htm', '1', '',  'l'),   //
+  ('TVNDR',                             '.cab', '1', '1',  ''),
+  ('SVNjKAFSA',                         '.cab', '1', '1',  ''), //encoded cab?
 
-           ('SUkqA',                             '.tif', '1', '1',  ''),
+  ('SUkqA',                             '.tif', '1', '1',  ''),
 
-           ('YOovA',                             '.arj', '1', '1',  ''),
-           ('UEsDBBQAA',                         '.zip', '1', '1',  ''),
-           ('UmFyIRoHA',                         '.rar', '1', '1',  ''),
-           ('H4sI',                              '.tgz', '1', '1',  ''), // also .gz and .tar.tar
-           ('QlpoOTFBWSZTW',                     '.bz2', '1', '1',  ''),
-           ('oqQUNFKio',                         '.ace', '11', '1',  ''),
+  ('YOovA',                             '.arj', '1', '1',  ''),
+  ('UEsDBBQAA',                         '.zip', '1', '1',  ''),
+  ('UmFyIRoHA',                         '.rar', '1', '1',  ''),
+  ('H4sI',                              '.tgz', '1', '1',  ''), // also .gz and .tar.tar
+  ('QlpoOTFBWSZTW',                     '.bz2', '1', '1',  ''),
+  ('oqQUNFKio',                         '.ace', '11', '1',  ''),
            //.tar  -not good
            //QXZpLwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
            //YXZpLwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 
-           ('SUQzAwAAAAA',                       '.mp3', '1', '1',  ''),
-           ('MCaydY5mzxGm2QCqAGLOb',             '.wma', '1', '1',  ''),
-           ('UklGRjL',                           '.wav', '1', '1',  ''),
-           ('TVRoZAAAAAYAAQA',                   '.mid', '1', '1',  ''),
-           ('UklGR',                             '.avi', '1', '1',  ''),
-           ('Qk0',                               '.bmp', '1', '1',  ''),
-           ('UklGR',                             '.cdr', '1', '1',  ''),
-           ('hash:',                             '.dsc', '1', '1',  'l'),
-           ('{\rtf1\',                           '.rtf', '1', '1',  'l'),
+  ('SUQzAwAAAAA',                       '.mp3', '1', '1',  ''),
+  ('MCaydY5mzxGm2QCqAGLOb',             '.wma', '1', '1',  ''),
+  ('UklGRjL',                           '.wav', '1', '1',  ''),
+  ('TVRoZAAAAAYAAQA',                   '.mid', '1', '1',  ''),
+  ('UklGR',                             '.avi', '1', '1',  ''),
+  ('Qk0',                               '.bmp', '1', '1',  ''),
+  ('UklGR',                             '.cdr', '1', '1',  ''),
+  ('hash:',                             '.dsc', '1', '1',  'l'),
+  ('{\rtf1\',                           '.rtf', '1', '1',  'l'),
            ('UlBLAQAC',                          '.rpk', '1', '1',  ''),
            ('QUMxMDE1AAAAAAAGAdwAAAAXBhwABgAAAABrQwAA','.dwg', '1', '1',  ''),
            ('SVRTRgMAAABgAAAAAQAAAE',            '.chm', '1', '1',  ''),
@@ -236,22 +236,22 @@ const
 
             //msi
             //0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAABiAAAA
-            
-           ('<xml xmlns',                        '.xml', '1', '1',  'l'),
-           ('<html>',                            '.htm', '1', '2-3',  'l'),
-           ('<!-- RSS',                          '.xml', '1', '1-5',  'l'),
-           ('<rss',                              '.xml', '1', '1-5',  'l')
+
+  ('<xml xmlns',                        '.xml', '1', '1',  'l'),
+  ('<html>',                            '.htm', '1', '2-3',  'l'),
+  ('<!-- RSS',                          '.xml', '1', '1-5',  'l'),
+  ('<rss',                              '.xml', '1', '1-5',  'l')
 
 
-         );
+  );
      //2nd priority
-     recognizedcount2=19;
-     recognized2:array[1..recognizedcount2,1..5]of string
+  recognizedcount2=19;
+  recognized2:array[1..recognizedcount2,1..5]of string
 
-       =(
+  =(
     //rare
 
-           ('unknown {',                         '.css', '1', '1',  'l'),
+  ('unknown {',                         '.css', '1', '1',  'l'),
            ('function(',                         '.js', '', '1',  'l'),
            ('function (',                        '.js', '', '1',  'l'),
 
@@ -320,7 +320,7 @@ const
            ('image/x-xpixmap',                   '.xpm'),
            ('application/x-pkcs7-signature',     '.p7s'),
            ('application/pgp-signature',         '.asc'),
-           
+
            ('text/x-patch',                      '.patch'),
            ('text/x-diff',                       '.patch'),
            ('text/x-c',                          '.c'),
@@ -605,7 +605,7 @@ const
 
 
          );
-         
+
          contenttypescount2=7;
          contenttypes2:array[1..contenttypescount2,1..2]of string
        =(   //lowercase strings
@@ -628,7 +628,7 @@ const
            ('application/xml',                   '.xml'),  //can be html
            ('application/x-multiplan',           '.wma')  //???
          );
-         
+
 {
 multipart/report
 multipart/mixed
@@ -644,7 +644,7 @@ Text/RFC822-headers
 
 
 
-         
+
      //unhandled .mht (or .eml) header commands, usualy from e-mails.
      //checked only to find if header is over.
      //not needed any more???
@@ -920,7 +920,7 @@ Text/RFC822-headers
                   'x-yubc.net-mailscanner-information:',
                   'xref:',
                   'yahoo',
-                  
+
                   'autolearn',
                   'auto-submitted:',
                   'contact',
@@ -953,8 +953,8 @@ Text/RFC822-headers
                   'X-Entireweb-Orig:',
                   'X-Envelope-From:',
                   'X-MDRemoteIP:',
-                  
-                  
+
+
                   'x-entireweb-orig:',
                   'x-envelope-from:',
                   'x-keywords:',
@@ -978,39 +978,38 @@ Text/RFC822-headers
                   'x-yubc-mailscanner:',
                   'x-yubc-mailscanner-from:',
                   'X-yubc-mailscanner-information:'
-                  
-         );    }
-         
-     deletetagcount=1;
-     deletetag:array[1..deletetagcount,1..2]of string
 
-       =(
-           ('<base href',           '/>')
-         );
+         );    }
+
+  deletetagcount=1;
+  deletetag:array[1..deletetagcount,1..2]of string
+
+  =(
+  ('<base href',           '/>')
+  );
 
 
      //HTML and CSS strings
-     HTMLCSSStringsCounter=14;
-     HTMLCSSStrings:array[1..HTMLCSSStringsCounter]of string
-       = (
-       'style="border: 12px dotted #fff; padding:27px; margin: 5px; background: url(data:image/gif;base64,R0lGODlhKwArAIAAAP7s7P/4+CH5BAAAAAAALAAAAAArACsAAALCDI6pGu0PI2irMhMzPM7aPmkZ8ngXxYkluZobq57g98KjPONoolW9vuPVgEERLUhExWguldPV/C19Bo/RNhQitdmQZPEFh4HiMbZ6zHlvXLS1tf7ZTNyz3Es/pZyzbZ7CZ5ZXFrhReDdIsncYkihkd6VGl1M4NwgXxxb3h5mJKdjmBkkouViaSSWIWJc6dsWU9jXlCFn59mY0KxNb86rTmrXqKToMvKWr+Rvq2oWzzNZMWHvTiWsaiEcLeAj6R5sUWAAAOw==); background-color: #fdacaf;"',
-       'style="border: 10px dashed #fff; padding:45px 0px; margin: 5px; background: url(data:image/gif;base64,R0lGODlhHgAeAIAAAJb/n7z/wyH5BAAAAAAALAAAAAAeAB4AAAIyjI+pAe29YnxOWkTB3ebxD4biSJbmiaJemqmZZr5wKZ+1TaVMpff+DwwKh65ey5WLvQoAOw==); BACKGROUND-COLOR: #9fd5ff;"',
+  HTMLCSSStringsCounter=14;
+  HTMLCSSStrings:array[1..HTMLCSSStringsCounter]of string
+  = (
+  'style="border: 12px dotted #fff; padding:27px; margin: 5px; background: url(data:image/gif;base64,R0lGODlhKwArAIAAAP7s7P/4+CH5BAAAAAAALAAAAAArACsAAALCDI6pGu0PI2irMhMzPM7aPmkZ8ngXxYkluZobq57g98KjPONoolW9vuPVgEERLUhExWguldPV/C19Bo/RNhQitdmQZPEFh4HiMbZ6zHlvXLS1tf7ZTNyz3Es/pZyzbZ7CZ5ZXFrhReDdIsncYkihkd6VGl1M4NwgXxxb3h5mJKdjmBkkouViaSSWIWJc6dsWU9jXlCFn59mY0KxNb86rTmrXqKToMvKWr+Rvq2oWzzNZMWHvTiWsaiEcLeAj6R5sUWAAAOw==); background-color: #fdacaf;"',
+  'style="border: 10px dashed #fff; padding:45px 0px; margin: 5px; background: url(data:image/gif;base64,R0lGODlhHgAeAIAAAJb/n7z/wyH5BAAAAAAALAAAAAAeAB4AAAIyjI+pAe29YnxOWkTB3ebxD4biSJbmiaJemqmZZr5wKZ+1TaVMpff+DwwKh65ey5WLvQoAOw==); BACKGROUND-COLOR: #9fd5ff;"',
        //'style="border: 10px dashed #fff; padding:45px 0px; margin: 5px; background: url(data:image/gif;base64,R0lGODlhHwAXAJEAAIfDh/j7+NTs1K7criH5BAAAAAAALAAAAAAfABcAAAJhTAYSwO3vDBsrVoiZQpmKnAUfmFwkI51Aem4qOoLeO4mkTWtHaObuw8o1DBzUTmixUQw932KJwwkpxYcCuWpahFfS7EVVdVXSU5AnPFu13rLjxz2+5Uh4if1S2PRfJHVZAAA7); BACKGROUND-COLOR: #9fd5ff;"',
-       'style="background-color: #fff; color: #f00; font-size: 170%; border: 2px solid #4cae50; padding: 10px 20px; text-align: center; text-shadow: 2px 2px 2px #777; margin-left: 20px;"',
-       'style="background-color: #f3e198; margin-top: 5px; border-top: 2px solid #D1C076; padding: 5px;"',
-       'style="background-color: #bdf4e8; border-top: 2px solid #9bd2c6; border-bottom: 2px solid #9bd2c6; padding: 5px;"',
-       'style="background-color: #bfb9da; margin-top: 5px; border-top: 2px solid #9d97b8; padding: 5px;"',
-       'style="background-color: #bfb9da; border-top: 2px solid #9d97b8; padding: 5px;"',
-       'style="background-color: #d4ffd3; margin-top: 5px; border-top: 2px solid #b2ddb1; border-bottom: 2px solid #b2ddb1; padding: 5px;"',
-       'style="background-color: #fdfbd1; margin-top: 5px; border-top: 2px solid #dbd9af; padding: 5px;"',
-       'style="background-color: #fdfbd1; border-top: 2px solid #dbd9af; padding: 5px;"',
-       'style="background-color: #fdfce8; border-top: 2px solid #dbd9af; border-bottom: 2px solid #dbd9af; padding: 5px;"',
-       'style="background-color: #d0f8fb; margin-top: 5px; border-top: 2px solid #aed6d9; padding: 5px;"',
-       'style="background-color: #d0f8fb; border-top: 2px solid #aed6d9; padding: 5px;"',
-       'style="background-color: #e3f9fb; border-top: 2px solid #aed6d9; border-bottom: 2px solid #aed6d9; padding: 5px;"'
-        );
+  'style="background-color: #fff; color: #f00; font-size: 170%; border: 2px solid #4cae50; padding: 10px 20px; text-align: center; text-shadow: 2px 2px 2px #777; margin-left: 20px;"',
+  'style="background-color: #f3e198; margin-top: 5px; border-top: 2px solid #D1C076; padding: 5px;"',
+  'style="background-color: #bdf4e8; border-top: 2px solid #9bd2c6; border-bottom: 2px solid #9bd2c6; padding: 5px;"',
+  'style="background-color: #bfb9da; margin-top: 5px; border-top: 2px solid #9d97b8; padding: 5px;"',
+  'style="background-color: #bfb9da; border-top: 2px solid #9d97b8; padding: 5px;"',
+  'style="background-color: #d4ffd3; margin-top: 5px; border-top: 2px solid #b2ddb1; border-bottom: 2px solid #b2ddb1; padding: 5px;"',
+  'style="background-color: #fdfbd1; margin-top: 5px; border-top: 2px solid #dbd9af; padding: 5px;"',
+  'style="background-color: #fdfbd1; border-top: 2px solid #dbd9af; padding: 5px;"',
+  'style="background-color: #fdfce8; border-top: 2px solid #dbd9af; border-bottom: 2px solid #dbd9af; padding: 5px;"',
+  'style="background-color: #d0f8fb; margin-top: 5px; border-top: 2px solid #aed6d9; padding: 5px;"',
+  'style="background-color: #d0f8fb; border-top: 2px solid #aed6d9; padding: 5px;"',
+  'style="background-color: #e3f9fb; border-top: 2px solid #aed6d9; border-bottom: 2px solid #aed6d9; padding: 5px;"'
+  );
 
 implementation
 
 end.
-
