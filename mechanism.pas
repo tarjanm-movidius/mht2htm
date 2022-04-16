@@ -22,6 +22,7 @@
 unit mechanism;
 
 {$mode objfpc}{$H+}
+{$inline+}
 //{$DEFINE CL}  //comment this if not command line program
 
 interface
@@ -64,6 +65,12 @@ implementation
 uses main;
 {$ENDIF}
 
+{$PUSH}
+{$WARN 5024 OFF : Parameter "$1" not used}
+procedure Unused(const S: string); inline;
+begin
+end;
+{$POP}
 
 {$IFNDEF CL}
 procedure ExecuteFile(const FileName:string; Params:TStrings; DefaultDir: string);
@@ -87,6 +94,9 @@ begin
       {$IFDEF MSWINDOWS}
     ShellExecute(Application.MainForm.Handle, nil, PChar(FileName),
     PChar(Params), PChar(DefaultDir), SW_SHOW);
+      {$ELSE}
+    Unused(Params);
+    Unused(DefaultDir);
       {$ENDIF}
       {$IFDEF UNIX}
      // Shell(format('kghostview %s',[FileName]));
@@ -182,6 +192,7 @@ var i:integer;
   b:boolean;
 begin
   b:=true;
+  Str2Byte:=127;
   for i:=0 to 63 do
   begin
     if table[i]=s then
@@ -327,6 +338,7 @@ var //common_parts_no:integer;
        {BaseURL_copy,}URL_copy:string;  //copies of input strings
   s:string;
 begin
+  s:='';
      //BaseURL_copy:=BaseURL;
   URL_copy:=url;
   if URL='' then

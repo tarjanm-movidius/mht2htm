@@ -23,6 +23,7 @@
 unit main;
 
 {$mode objfpc}{$H+}
+{$inline+}
 
 interface
 
@@ -226,6 +227,29 @@ var
 
 implementation
 
+{$PUSH}
+{$WARN 5024 OFF : Parameter "$1" not used}
+procedure Unused(const P: TObject); inline; overload;
+begin
+end;
+
+procedure Unused(const I: Integer); inline; overload;
+begin
+end;
+
+procedure Unused(const S: TMouseButton); inline; overload;
+begin
+end;
+
+procedure Unused(const S: TCloseAction); inline; overload;
+begin
+end;
+
+procedure Unused(const S: TShiftState); inline; overload;
+begin
+end;
+{$POP}
+
 procedure TForm1.set_language(i:integer);
 var j:integer;
 begin
@@ -317,6 +341,7 @@ procedure TForm1.FormDropFiles(Sender: TObject; const FileNames: array of String
 var i: integer;
   file_list:TStringList;
 begin
+  Unused(Sender);
   if Button1.Enabled then
   begin
     if MessageDlg(language_strings[language_nr,162], language_strings[language_nr,163]+inttostr(High(FileNames)-Low(FileNames)+1)+language_strings[language_nr,164], mtConfirmation,
@@ -333,22 +358,27 @@ end;
 
 procedure TForm1.MenuItem3Click(Sender: TObject);
 begin
+  Unused(Sender);
   Clipboard.AsText:=StringGrid2.Cells[1,StringGrid2.Row]+'_0_start_me.htm';
 end;
 
 procedure TForm1.MenuItem4Click(Sender: TObject);
 begin
+  Unused(Sender);
   Clipboard.AsText:=StringGrid2.Cells[0,StringGrid2.Row];
 end;
 
 procedure TForm1.MenuItem5Click(Sender: TObject);
 begin
+  Unused(Sender);
   Clipboard.AsText:=StringGrid2.Cells[1,StringGrid2.Row];
 end;
 
 procedure TForm1.Open_Directory(directory_name: string);
+{$IFDEF MSWINDOWS}
 var
   AProcess: TProcess;
+{$ENDIF}
 begin
 {$IFDEF MSWINDOWS}
   //ExecuteFile( Browser,'/e,'+directory_name,'');
@@ -366,12 +396,17 @@ end;
 procedure TForm1.Button8Mouse(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,155];
 end;
 
 procedure TForm1.Button9Click(Sender: TObject);
 var   file_list:TStringList;
 begin
+  Unused(Sender);
   //GroupBox3.Visible:=false;
   Panel10.Visible:=false;
   Panel1.Enabled:=True;
@@ -388,11 +423,14 @@ end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  Unused(Sender);
+  Unused(CloseAction);
   megaNFOlist.Free;
 end;
 
 procedure TForm1.Button8Click(Sender: TObject);
 begin
+  Unused(Sender);
   if SelectDirectoryDialog2.Execute then
   begin
     //GroupBox3.Visible:=true;
@@ -405,6 +443,7 @@ end;
 
 procedure TForm1.Button15Click(Sender: TObject);
 begin
+  Unused(Sender);
   //GroupBox3.Visible:=false;
   Panel10.Visible:=false;
   Panel1.Enabled:=True;
@@ -414,6 +453,7 @@ end;
 procedure TForm1.FormResize(Sender: TObject);
 var h,w:integer;
 begin
+  Unused(Sender);
   w:=Button1.Width+Button2.Width+Button4.Width+Button5.Width;
   if Button7.Visible then w:=w+Button7.Width;
   if Button3.Visible then w:=w+Button3.Width;
@@ -437,6 +477,10 @@ end;
 procedure TForm1.Image2MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,74];
 end;
 
@@ -444,6 +488,9 @@ end;
 procedure TForm1.Image2MouseUp(Sender: TOBject; Button: TMouseButton;
 Shift: TShiftState; X, Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Button);
+  Unused(Shift);
   {$IFDEF Gtk2}
   PopupMenu2.PopUp(X+Form1.Left, Y+Form1.Top);
   {$ELSE}
@@ -455,35 +502,52 @@ end;
 
 procedure TForm1.Label12Click(Sender: TObject);
 begin
+  Unused(Sender);
   Open_WebPage('http://www.lazarus.freepascal.org');
 end;
 
 procedure TForm1.Label16MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,67];
 end;
 
 procedure TForm1.Label19MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,68];
 end;
 
 procedure TForm1.Label22MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,69];
 end;
 
 procedure TForm1.Label7Click(Sender: TObject);
 begin
+  Unused(Sender);
   Open_WebPage(PMySite);
 end;
 
 procedure TForm1.Label7MouseUp(Sender: TOBject; Button: TMouseButton;
 Shift: TShiftState; X, Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Button);
+  Unused(Shift);
   {$IFDEF Gtk2}
   PopupMenu2.PopUp(X+Form1.Left, Y+Form1.Top);
   {$ELSE}
@@ -493,11 +557,13 @@ end;
 
 procedure TForm1.Label9Click(Sender: TObject);
 begin
+  Unused(Sender);
   Open_WebPage(PMyMail)
 end;
 
 procedure TForm1.MenuItem1Click(Sender: TObject);
 begin
+  Unused(Sender);
   MenuItem2.Checked:=false;
   MenuItem1.Checked:=true;
   Label7.Caption:=MenuItem1.Caption;
@@ -506,6 +572,7 @@ end;
 
 procedure TForm1.MenuItem2Click(Sender: TObject);
 begin
+  Unused(Sender);
   MenuItem1.Checked:=false;
   MenuItem2.Checked:=true;
   Label7.Caption:=MenuItem2.Caption;
@@ -514,6 +581,7 @@ end;
 
 procedure TForm1.OpenHTMdir1Click(Sender: TObject);
 begin
+  Unused(Sender);
   if NeedRTLAnsi then
   begin
     if DirectoryExists(StringGrid2.Cells[1,StringGrid2.Row]) then
@@ -527,6 +595,7 @@ end;
 
 procedure TForm1.OpenHTMfile1Click(Sender: TObject);
 begin
+  Unused(Sender);
   if NeedRTLAnsi then
   begin
     if FileExists(StringGrid2.Cells[0,StringGrid2.Row]) then
@@ -540,6 +609,7 @@ end;
 
 procedure TForm1.OpenMHTfile1Click(Sender: TObject);
 begin
+  Unused(Sender);
   if NeedRTLAnsi then
   begin
     if FileExists(StringGrid2.Cells[1,StringGrid2.Row]+'_0_start_me.htm') then
@@ -554,6 +624,10 @@ end;
 procedure TForm1.StringGrid1MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,71];
 end;
 
@@ -561,6 +635,10 @@ end;
 procedure TForm1.StringGrid2MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,70];
 end;
 
@@ -568,6 +646,7 @@ end;
 
 procedure TForm1.TrackBar1Change(Sender: TObject);
 begin
+  Unused(Sender);
   case TrackBar1.Position of
     0:Label15.Caption:=language_strings[language_nr,16];
     1:Label15.Caption:=language_strings[language_nr,17];
@@ -581,11 +660,16 @@ end;
 procedure TForm1.TrackBar1MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,72];
 end;
 
 procedure TForm1.TrackBar2Change(Sender: TObject);
 begin
+  Unused(Sender);
   case TrackBar2.Position of
     1:Label18.Caption:=language_strings[language_nr,149];
     2:Label18.Caption:=language_strings[language_nr,150];
@@ -597,6 +681,10 @@ end;
 procedure TForm1.TrackBar2MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,146];
 end;
 
@@ -604,6 +692,7 @@ procedure TForm1.FormCreate(Sender: TObject);
 var table_tmp:string;
   i:byte;
 begin
+  Unused(Sender);
   Form1.Caption:='mht2htm v'+PVer+' '+PDat+' '+PExtra;
   Application.Title:='mht2htm';
   Label16.Hint:=PMySite;
@@ -703,6 +792,7 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
+  Unused(Sender);
   if OpenDialog1.Execute then
   AddFilesFromList(OpenDialog1.Files);
 end;
@@ -710,12 +800,17 @@ end;
 procedure TForm1.Button1MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,55];
 end;
 
 
 procedure TForm1.Button2Click(Sender: TObject);
 begin
+  Unused(Sender);
   if StringGrid1.Cells[1,StringGrid1.Row]<>'' then
   begin
     SizeAll:=SizeAll-StrToInt(StringGrid1.Cells[1,StringGrid1.Row]);
@@ -740,6 +835,10 @@ end;
 procedure TForm1.Button2MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,56];
 end;
 
@@ -753,6 +852,7 @@ var BF,i,j,t1,t2,t3:integer;
   MKDirError,UnsupportedError:boolean;
   ErrorCounter:integer;
 begin
+  Unused(Sender);
   if (StringGrid1.RowCount>2) or (StringGrid1.Cells[0,1]<>'') then
   begin
     if CheckBox2.Checked then Button7.Caption:=language_strings[language_nr,29]
@@ -981,6 +1081,10 @@ end;
 procedure TForm1.Button3MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   if Button3.Caption=language_strings[language_nr,27] then
   StatusBar1.SimpleText:=language_strings[language_nr,57]
   else if Button3.Caption=language_strings[language_nr,30] then
@@ -989,6 +1093,7 @@ end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 begin
+  Unused(Sender);
   if StringGrid2.Visible then
   begin
     Label1.Caption:=language_strings[language_nr,1];  //Files to convert:
@@ -1012,6 +1117,10 @@ end;
 procedure TForm1.Button4MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   if Button4.Caption=language_strings[language_nr,31] then
   StatusBar1.SimpleText:=language_strings[language_nr,61]
   else if Button4.Caption=language_strings[language_nr,32] then
@@ -1020,6 +1129,7 @@ end;
 
 procedure TForm1.Button5Click(Sender: TObject);
 begin
+  Unused(Sender);
   if FileExists(ExtractFilePath(Application.ExeName)+'help'+DirectorySeparator+language_strings[language_nr,160]+DirectorySeparator+'index.htm') then
   Open_Document(ExtractFilePath(Application.ExeName)+'help'+DirectorySeparator+language_strings[language_nr,160]+DirectorySeparator+'index.htm')
   else Open_WebPage(PMySite+'/mht2htm/help.html');
@@ -1029,11 +1139,16 @@ end;
 procedure TForm1.Button5MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,63];
 end;
 
 procedure TForm1.Button6Click(Sender: TObject);
 begin
+  Unused(Sender);
   if SelectDirectoryDialog1.Execute then
   begin
     Edit1.Text:=SelectDirectoryDialog1.FileName;
@@ -1045,11 +1160,16 @@ end;
 procedure TForm1.Button6MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,65];
 end;
 
 procedure TForm1.Button7Click(Sender: TObject);
 begin
+  Unused(Sender);
   if Button7.Caption=language_strings[language_nr,28] then stop:=true
   else pause:=true;
 end;
@@ -1057,6 +1177,10 @@ end;
 procedure TForm1.Button7MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   if Button7.Caption=language_strings[language_nr,28] then
   StatusBar1.SimpleText:=language_strings[language_nr,59]
   else if Button7.Caption=language_strings[language_nr,29] then
@@ -1066,6 +1190,7 @@ end;
 
 procedure TForm1.CheckBox1Change(Sender: TObject);
 begin
+  Unused(Sender);
   if CheckBox1.Checked then Edit1.Enabled:=false
   else Edit1.Enabled:=true;
 end;
@@ -1073,17 +1198,26 @@ end;
 procedure TForm1.CheckBox1MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,66];
 end;
 
 procedure TForm1.CheckBox2MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,73];
 end;
 
 procedure TForm1.Edit1Change(Sender: TObject);
 begin
+  Unused(Sender);
   if Edit1.text='debug mode' then
   begin
     Label23.visible:=not(Label23.visible);
@@ -1096,6 +1230,10 @@ end;
 procedure TForm1.Edit1MouseMove(Sender: TObject; Shift: TShiftState; X,
 Y: Integer);
 begin
+  Unused(Sender);
+  Unused(Shift);
+  Unused(X);
+  Unused(Y);
   StatusBar1.SimpleText:=language_strings[language_nr,64];
 end;
 

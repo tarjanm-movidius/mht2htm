@@ -1,4 +1,5 @@
 *~
+*.bak
 backup
 lib
 mht2htm
