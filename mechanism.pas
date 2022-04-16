@@ -181,27 +181,33 @@ begin
   begin
     b:=true;
     for i:=0 to 63 do
-    if table[i]=s[i1] then b:=false;
+    begin
+      if table[i]=s[i1] then
+      begin
+        b:=false;
+        break;
+      end;
+    end;
     if s[i1]='=' then b:=false;
-    if b then Delete(s,i1,1);
+    if b then
+      Delete(s,i1,1)
+    else
+      inc(i1);
   end;
 end;
 
-function Str2Byte(s:string):byte; //returns 0 to 63 or 127 for error (non table char)
+function Str2Byte(s:string):byte inline; //returns 0 to 63 or 127 for error (non table char)
 var i:integer;
-  b:boolean;
 begin
-  b:=true;
   Str2Byte:=127;
   for i:=0 to 63 do
   begin
     if table[i]=s then
     begin
       Str2Byte:=i;
-      b:=false;
+      break;
     end;
   end;
-  if b then Str2Byte:=127;
 end;
 
 
@@ -440,9 +446,10 @@ begin
 end;
 
     //**********inner procedure***********************
-function ExtractHeader(var s:string):boolean;   //returns true if line is header
+function ExtractHeader(var s:string):boolean inline;   //returns true if line is header
 var found:boolean;
   s1:string;
+  ls:string;
         //i:integer;
 begin
   found:=false;
@@ -783,156 +790,184 @@ begin
 
     end
           //parts headers only (not mht file header)
-          //boundary extract start
-    else if pos('boundary',lowercase(s))=1 then
+
+    // Optimization begins here, as it's the most frequently run part of the entire code
+//    else if pos('boundary',lowercase(s))=1 then
+    else
     begin
-      Delete(s,1,8);
-      s:=Trim(s);
-      if copy(s,1,1)='=' then Delete(s,1,1);
-      s:=Trim(s);
-      if copy(s,1,1)='"' then
+      if length(s) > 4 then
       begin
-        Delete(s,1,1);
-        if pos('"',s)<>0 then
-        s:= copy(s,1,pos('"',s)-1)
-      end;
-      if boundary.IndexOf(s)=-1 then
-      begin
-        boundary.Add(s);
-        boundarycount:=boundarycount+1;
-      end;
-      found:=true;
-    end
-          //boundary extract end
-          //Content-Type: extract start
-    else if pos('content-type:',lowercase(s))=1 then
-    begin
-      Delete(s,1,13);
-      s:=Trim(s);
-      part_content_type[Parts]:=s;
-      found:=true;
-    end
-          //Content-Type: extract end
-          //Content-Location: extract start
-    else if pos('content-location:',lowercase(s))=1 then
-    begin
-      Delete(s,1,17);
-      s:=Trim(s);
-      s:=ExtractMultiline(s);
-      part_content_location[Parts]:=s;
-      found:=true;
-    end
-          //Content-Location: extract start
-          //Content-Description:: extract start //??? newly found, not extracted yet
-    else if pos('content-description:',lowercase(s))=1 then
-    begin
-             {Delete(s,1,20);
-             s:=Trim(s);
-             s:=ExtractMultiline(s);
-             part_content_location[Parts]:=s;   }
-      found:=true;
-    end
-          //Content-Description:Content-Location: extract start
-          //Content-Transfer-Encoding: extract start
-    else if pos('content-transfer-encoding:',lowercase(s))=1 then
-    begin
-      Delete(s,1,26);
-      s:=Trim(s);
-      part_content_transfer_encoding[Parts]:=s;
-      found:=true;
-    end
-          //Content-Transfer-Encoding: extract start
-          //Content-Type: extract end
-          //charset= extract start
-    else if (part_header or found) and (pos('charset',lowercase(s))=1) then  //header can't start with this
-    begin
-      Delete(s,1,7);
-      s:=Trim(s);
-      if s[1]='=' then Delete(s,1,1);
-      s:=Trim(s);
-      if s[1]='"' then
-      begin
-        Delete(s,1,1);
-        if pos('"',s)<>0 then
-        s:= copy(s,1,pos('"',s)-1)
-      end;
-      part_charset[Parts]:=s;
-      found:=true;
-    end
-          //charset= extract start
-          //Content-ID: <  > extract start
-    else if pos('content-id:',lowercase(s))=1 then
-    begin
-      Delete(s,1,11);
-      s:=Trim(s);
-      if pos('<',s)<>0 then
-      begin
-        Delete(s,1,pos('<',s));
-        if pos('>',s)<>0 then
-        s:= copy(s,1,pos('>',s)-1)
-      end;
-{             if s[1]='<' then
-             begin
-                Delete(s,1,1);
+        ls:=lowercase(s);
+//      if (length(ls) > 0) and ((ls[1]='b') or (ls[1]='c') or (ls[1]='f') or (ls[1]='n')) then
+        if ls[1]='c' then
+        begin
+          if ls[2]='o' then
+          begin
+                //Content-Type: extract start
+            if pos('content-type:',ls)=1 then
+            begin
+              Delete(s,1,13);
+              s:=Trim(s);
+              part_content_type[Parts]:=s;
+              found:=true;
+            end
+                //Content-Type: extract end
+                //Content-Location: extract start
+            else if pos('content-location:',ls)=1 then
+            begin
+              Delete(s,1,17);
+              s:=Trim(s);
+              s:=ExtractMultiline(s);
+              part_content_location[Parts]:=s;
+              found:=true;
+            end
+                //Content-Location: extract start
+                //Content-Description:: extract start //??? newly found, not extracted yet
+            else if pos('content-description:',ls)=1 then
+            begin
+                   {Delete(s,1,20);
+                   s:=Trim(s);
+                   s:=ExtractMultiline(s);
+                   part_content_location[Parts]:=s;   }
+              found:=true;
+            end
+                //Content-Description:Content-Location: extract start
+                //Content-Transfer-Encoding: extract start
+            else if pos('content-transfer-encoding:',ls)=1 then
+            begin
+              Delete(s,1,26);
+              s:=Trim(s);
+              part_content_transfer_encoding[Parts]:=s;
+              found:=true;
+            end
+                //Content-Transfer-Encoding: extract start
+                //Content-Type: extract end
+                //Content-ID: <  > extract start
+            else if pos('content-id:',ls)=1 then
+            begin
+              Delete(s,1,11);
+              s:=Trim(s);
+              if pos('<',s)<>0 then
+              begin
+                Delete(s,1,pos('<',s));
                 if pos('>',s)<>0 then
-                   s:= copy(s,1,pos('>',s)-1)
-             end;  }
-      part_content_id[Parts]:=s;
-      found:=true;
-    end
-          //Content-ID: <  > extract start
-          //Content-Disposition: extract start
-    else if pos('content-disposition:',lowercase(s))=1 then
-    begin
-      Delete(s,1,20);
-      s:=Trim(s);
-      part_content_disposition[Parts]:=s;
-      found:=true;
-    end
-          //Content-Disposition: extract start
-          //filename= extract start (Firefox, Opera)
-    else if (part_header or found) and (pos('filename',lowercase(s))=1) then //header can't start with this
-    begin
-      Delete(s,1,8);
-      s:=Trim(s);
-      if s[1]='=' then Delete(s,1,1)
-      else if (s[1]='*') and (pos('=',s)<>0) then Delete(s,1,pos('=',s));
-      s:=Trim(s);
-      if (s[1]='"') and (s[length(s)]='"') then s:=copy(s,2,length(s)-2);
-      part_filename[Parts]:=s;
-      found:=true;
-    end
-          //filename= extract end
-          //name= extract start (Firefox, Opera)
-    else if (part_header or found) and (pos('name',lowercase(s))=1) then  //header can't start with this
-    begin
-      Delete(s,1,4);
-      s:=Trim(s);
-      if s[1]='=' then Delete(s,1,1)
-      else if (s[1]='*') and (pos('=',s)<>0) then Delete(s,1,pos('=',s));
-      s:=Trim(s);
-      if (s[1]='"') and (s[length(s)]='"') then s:=copy(s,2,length(s)-2);
-      part_name[Parts]:=s;
-      found:=true;
+                s:= copy(s,1,pos('>',s)-1)
+              end;
+{                   if s[1]='<' then
+                   begin
+                      Delete(s,1,1);
+                      if pos('>',s)<>0 then
+                         s:= copy(s,1,pos('>',s)-1)
+                   end;  }
+              part_content_id[Parts]:=s;
+              found:=true;
+            end
+                //Content-ID: <  > extract end
+                //Content-Disposition: extract start
+            else if pos('content-disposition:',ls)=1 then
+            begin
+              Delete(s,1,20);
+              s:=Trim(s);
+              part_content_disposition[Parts]:=s;
+              found:=true;
+            end
+                //Content-Disposition: extract end
+          end
+              //charset= extract start
+          else if (part_header or found) and (pos('charset',ls)=1) then  //header can't start with this
+          begin
+            Delete(s,1,7);
+            s:=Trim(s);
+            if s[1]='=' then Delete(s,1,1);
+            s:=Trim(s);
+            if s[1]='"' then
+            begin
+              Delete(s,1,1);
+              if pos('"',s)<>0 then
+              s:= copy(s,1,pos('"',s)-1)
+            end;
+            part_charset[Parts]:=s;
+            found:=true;
+          end
+              //charset= extract end
+        end
+        else if ((ls[1]='b') or (ls[1]='f') or (ls[1]='n')) and ((ls[2]='o') or (ls[2]='i') or (ls[2]='a')) then
+        begin
+          //boundary extract start
+          if pos('boundary',ls)=1 then
+          begin
+            Delete(s,1,8);
+            s:=Trim(s);
+            if copy(s,1,1)='=' then Delete(s,1,1);
+            s:=Trim(s);
+            if copy(s,1,1)='"' then
+            begin
+              Delete(s,1,1);
+              if pos('"',s)<>0 then
+              s:= copy(s,1,pos('"',s)-1)
+            end;
+            if boundary.IndexOf(s)=-1 then
+            begin
+              boundary.Add(s);
+              boundarycount:=boundarycount+1;
+            end;
+            found:=true;
+          end
+              //boundary extract end
+          else if part_header or found then //header can't start with this
+              //filename= extract start (Firefox, Opera)
+          begin
+            if pos('filename',ls)=1 then
+            begin
+              Delete(s,1,8);
+              s:=Trim(s);
+              if s[1]='=' then Delete(s,1,1)
+              else if (s[1]='*') and (pos('=',s)<>0) then Delete(s,1,pos('=',s));
+              s:=Trim(s);
+              if (s[1]='"') and (s[length(s)]='"') then s:=copy(s,2,length(s)-2);
+              part_filename[Parts]:=s;
+              found:=true;
+            end
+                //filename= extract end
+                //name= extract start (Firefox, Opera)
+            else if pos('name',ls)=1 then
+            begin
+              Delete(s,1,4);
+              s:=Trim(s);
+              if s[1]='=' then Delete(s,1,1)
+              else if (s[1]='*') and (pos('=',s)<>0) then Delete(s,1,pos('=',s));
+              s:=Trim(s);
+              if (s[1]='"') and (s[length(s)]='"') then s:=copy(s,2,length(s)-2);
+              part_name[Parts]:=s;
+              found:=true;
+            end;
+          end;
+        end;
+      end;
     end;
+    // Optimization ends
           //name= extract start
 //       end;
     s:=s1;
-  until s1='';
+  until (s1=''); // or found;
   ExtractHeader:=found;
 
 end;
 
    //**********inner procedure***********************
-function isboundary(s:string):integer;  //is line boundary?
+function isboundary(s:string):integer inline;  //is line boundary?
 var i:integer;
-  found:integer;
 begin
   s:=trim(s);
-  found:=0;
-  for i:=1 to boundarycount do
-  if pos('--'+boundary[i],s)=1 then found:=i;
-  isboundary:=found;
+  isboundary:=0;
+  for i:=boundarycount downto 1 do
+  begin
+    if pos('--'+boundary[i],s)=1 then
+    begin
+      isboundary:=i;
+      break;
+    end;
+  end;
 end;
 
   //**********inner procedure***********************
