@@ -1332,7 +1332,7 @@ end;
 Function ReplaceURL(s:string):string;   //Replace original addresses with local ones
 var i:integer;
   deenesc_s,enesc_s:string;
-function Replace(s,s1,s2,starting,ending:string):string;
+procedure Replace(var s:string; s1,s2,starting,ending:string) inline;
    //s1=repso,s2=repsn
 var i1,startlength{,endlength}:integer;
 begin
@@ -1358,7 +1358,6 @@ begin
 // DEBUG MODE END
     end;
   end;
-  Replace:=s;
 end;
 function Dellete(s,s1:string):string;
    //s1=delo
@@ -1409,61 +1408,61 @@ begin
     for i:=1 to repso.Count-1 do
     if ((repso[i]<>repsn[i]) and (repso[i]<>'')) and (pos(repso[i],repsn[i])=0) then //avoid dead loop
     begin
-      s:=Replace(s,repso[i],repsn[i],'"','"');
-      s:=Replace(s,repso[i],repsn[i],'''','''');
-      s:=Replace(s,repso[i],repsn[i],'"','#');
-      s:=Replace(s,repso[i],repsn[i],'(',')');
+      Replace(s,repso[i],repsn[i],'"','"');
+      Replace(s,repso[i],repsn[i],'''','''');
+      Replace(s,repso[i],repsn[i],'"','#');
+      Replace(s,repso[i],repsn[i],'(',')');
     //
       deenesc_s:=DeEnEsc(repso[i]);
       enesc_s:=EnEsc(repso[i]);
       if AddressCorrecting>=2 then
       begin
-        s:=Replace(s,repso[i],repsn[i],'''','#');
+        Replace(s,repso[i],repsn[i],'''','#');
         if ((deenesc_s<>repso[i]) and (deenesc_s<>'')) and (pos(deenesc_s,repsn[i])=0) then
         begin
-          s:=Replace(s,deenesc_s,repsn[i],'"','"');
-          s:=Replace(s,deenesc_s,repsn[i],'"','#');
+          Replace(s,deenesc_s,repsn[i],'"','"');
+          Replace(s,deenesc_s,repsn[i],'"','#');
         end;
         if ((enesc_s<>repso[i]) and (enesc_s<>'')) and (pos(enesc_s,repsn[i])=0) then
         begin
-          s:=Replace(s,enesc_s,repsn[i],'"','"');
-          s:=Replace(s,enesc_s,repsn[i],'"','#');
+          Replace(s,enesc_s,repsn[i],'"','"');
+          Replace(s,enesc_s,repsn[i],'"','#');
         end;
     //
         if AddressCorrecting>=3 then
         begin
-          s:=Replace(s,repso[i],repsn[i],'=','');
-          s:=Replace(s,repso[i],repsn[i],'= ','');
+          Replace(s,repso[i],repsn[i],'=','');
+          Replace(s,repso[i],repsn[i],'= ','');
           if ((deenesc_s<>repso[i]) and (deenesc_s<>'')) and (pos(deenesc_s,repsn[i])=0) then
           begin
-            s:=Replace(s,deenesc_s,repsn[i],'''','''');
-            s:=Replace(s,deenesc_s,repsn[i],'(',')');
-            s:=Replace(s,deenesc_s,repsn[i],'''','#');
+            Replace(s,deenesc_s,repsn[i],'''','''');
+            Replace(s,deenesc_s,repsn[i],'(',')');
+            Replace(s,deenesc_s,repsn[i],'''','#');
           end;
           if ((enesc_s<>repso[i]) and (enesc_s<>'')) and (pos(enesc_s,repsn[i])=0) then
           begin
-            s:=Replace(s,enesc_s,repsn[i],'''','''');
-            s:=Replace(s,enesc_s,repsn[i],'(',')');
-            s:=Replace(s,enesc_s,repsn[i],'''','#');
+            Replace(s,enesc_s,repsn[i],'''','''');
+            Replace(s,enesc_s,repsn[i],'(',')');
+            Replace(s,enesc_s,repsn[i],'''','#');
           end;
     //
           if AddressCorrecting>=4 then
           begin
-            s:=Replace(s,repso[i],repsn[i],'=  ','');
-            s:=Replace(s,repso[i],repsn[i],'( ',' )');
+            Replace(s,repso[i],repsn[i],'=  ','');
+            Replace(s,repso[i],repsn[i],'( ',' )');
             if ((deenesc_s<>repso[i]) and (deenesc_s<>'')) and (pos(deenesc_s,repsn[i])=0) then
             begin
-              s:=Replace(s,deenesc_s,repsn[i],'=','');
-              s:=Replace(s,deenesc_s,repsn[i],'= ','');
-              s:=Replace(s,deenesc_s,repsn[i],'=  ','');
-              s:=Replace(s,deenesc_s,repsn[i],'( ',' )');
+              Replace(s,deenesc_s,repsn[i],'=','');
+              Replace(s,deenesc_s,repsn[i],'= ','');
+              Replace(s,deenesc_s,repsn[i],'=  ','');
+              Replace(s,deenesc_s,repsn[i],'( ',' )');
             end;
             if ((enesc_s<>repso[i]) and (enesc_s<>'')) and (pos(enesc_s,repsn[i])=0) then
             begin
-              s:=Replace(s,enesc_s,repsn[i],'=','');
-              s:=Replace(s,enesc_s,repsn[i],'= ','');
-              s:=Replace(s,enesc_s,repsn[i],'=  ','');
-              s:=Replace(s,enesc_s,repsn[i],'( ',' )');
+              Replace(s,enesc_s,repsn[i],'=','');
+              Replace(s,enesc_s,repsn[i],'= ','');
+              Replace(s,enesc_s,repsn[i],'=  ','');
+              Replace(s,enesc_s,repsn[i],'( ',' )');
             end;
           end;
         end;
@@ -1472,65 +1471,65 @@ begin
     for i:=1 to repso1.Count-1 do
     if ((repso1[i]<>repsn1[i]) and (repso1[i]<>'')) and (pos(repso1[i],repsn1[i])=0) then //avoid dead loop
     begin
-      s:=Replace(s,repso1[i],repsn1[i],'"','"');
-      s:=Replace(s,repso1[i],repsn1[i],'''','''');
-      s:=Replace(s,repso1[i],repsn1[i],'"','#');
-      s:=Replace(s,repso1[i],repsn1[i],'(',')');
+      Replace(s,repso1[i],repsn1[i],'"','"');
+      Replace(s,repso1[i],repsn1[i],'''','''');
+      Replace(s,repso1[i],repsn1[i],'"','#');
+      Replace(s,repso1[i],repsn1[i],'(',')');
   //
       deenesc_s:=DeEnEsc(repso1[i]);
       enesc_s:=EnEsc(repso1[i]);
       if AddressCorrecting>=2 then
       begin
-        s:=Replace(s,repso1[i],repsn1[i],'''','#');
+        Replace(s,repso1[i],repsn1[i],'''','#');
         if ((deenesc_s<>repso1[i]) and (deenesc_s<>'')) and (pos(deenesc_s,repsn1[i])=0) then
         begin
-          s:=Replace(s,deenesc_s,repsn1[i],'"','"');
-          s:=Replace(s,deenesc_s,repsn1[i],'"','#');
+          Replace(s,deenesc_s,repsn1[i],'"','"');
+          Replace(s,deenesc_s,repsn1[i],'"','#');
         end;
         if ((enesc_s<>repso1[i]) and (enesc_s<>'')) and (pos(enesc_s,repsn1[i])=0) then
         begin
-          s:=Replace(s,enesc_s,repsn1[i],'"','"');
-          s:=Replace(s,enesc_s,repsn1[i],'"','#');
+          Replace(s,enesc_s,repsn1[i],'"','"');
+          Replace(s,enesc_s,repsn1[i],'"','#');
         end;
   //
         if AddressCorrecting>=3 then
         begin
-          s:=Replace(s,repso1[i],repsn1[i],'=','');
-          s:=Replace(s,repso1[i],repsn1[i],'= ','');
+          Replace(s,repso1[i],repsn1[i],'=','');
+          Replace(s,repso1[i],repsn1[i],'= ','');
           if ((deenesc_s<>repso[i]) and (deenesc_s<>'')) and (pos(deenesc_s,repsn[i])=0) then
           begin
-            s:=Replace(s,deenesc_s,repsn1[i],'''','''');
-            s:=Replace(s,deenesc_s,repsn1[i],'(',')');
-            s:=Replace(s,deenesc_s,repsn1[i],'''','#');
+            Replace(s,deenesc_s,repsn1[i],'''','''');
+            Replace(s,deenesc_s,repsn1[i],'(',')');
+            Replace(s,deenesc_s,repsn1[i],'''','#');
           end;
           if ((enesc_s<>repso1[i]) and (enesc_s<>'')) and (pos(enesc_s,repsn1[i])=0) then
           begin
-            s:=Replace(s,enesc_s,repsn1[i],'''','''');
-            s:=Replace(s,enesc_s,repsn1[i],'(',')');
-            s:=Replace(s,enesc_s,repsn1[i],'''','#');
+            Replace(s,enesc_s,repsn1[i],'''','''');
+            Replace(s,enesc_s,repsn1[i],'(',')');
+            Replace(s,enesc_s,repsn1[i],'''','#');
           end;
   //
           if AddressCorrecting>=4 then
           begin
-            s:=Replace(s,repso1[i],repsn1[i],'=  ','');
-            s:=Replace(s,repso1[i],repsn1[i],'( ',' )');
+            Replace(s,repso1[i],repsn1[i],'=  ','');
+            Replace(s,repso1[i],repsn1[i],'( ',' )');
             if ((deenesc_s<>repso[i]) and (deenesc_s<>'')) and (pos(deenesc_s,repsn[i])=0) then
             begin
-              s:=Replace(s,deenesc_s,repsn1[i],'=','');
-              s:=Replace(s,deenesc_s,repsn1[i],'= ','');
-              s:=Replace(s,deenesc_s,repsn1[i],'=  ','');
-              s:=Replace(s,deenesc_s,repsn1[i],'( ',' )');
+              Replace(s,deenesc_s,repsn1[i],'=','');
+              Replace(s,deenesc_s,repsn1[i],'= ','');
+              Replace(s,deenesc_s,repsn1[i],'=  ','');
+              Replace(s,deenesc_s,repsn1[i],'( ',' )');
             end;
             if ((enesc_s<>repso1[i]) and (enesc_s<>'')) and (pos(enesc_s,repsn1[i])=0) then
             begin
-              s:=Replace(s,enesc_s,repsn1[i],'=','');
-              s:=Replace(s,enesc_s,repsn1[i],'= ','');
-              s:=Replace(s,enesc_s,repsn1[i],'=  ','');
-              s:=Replace(s,enesc_s,repsn1[i],'( ',' )');
+              Replace(s,enesc_s,repsn1[i],'=','');
+              Replace(s,enesc_s,repsn1[i],'= ','');
+              Replace(s,enesc_s,repsn1[i],'=  ','');
+              Replace(s,enesc_s,repsn1[i],'( ',' )');
             end;
           end;
 
-//           s:=Replace(s,repso1[i],repsn1[i],'"','&'); //unsure
+//           Replace(s,repso1[i],repsn1[i],'"','&'); //unsure
         end;
       end;
     end;

@@ -74,7 +74,7 @@ Shifted from BETA to RC
 Added better support for .eml (mail: IE, Thunderbird,...), .msg (SOHO mail server) .nws (news) files.
 (Lazarus mailing list used as source of thousands mails from different mail clients. Find about this mailing list at lazarus.freepascal.org)
 Tested with lot of OpenSource CMSs, blogs, forums, galleries, wikies... (Thanks to www.opensourcecms.com for collecting them on one place)
-Further improvement of file types recognition. 
+Further improvement of file types recognition.
 Smaller executables (credits to FPC and UPX).
 25% faster then v1.6.0.3
 Three info files mht2htm is making for each mht are now named: _0_start_me.htm, _1_info.nfo and _2_debug.nfo. Attempt to make them first in directory in any OS.
@@ -99,7 +99,7 @@ Now work with .mht files saved with:
 	-html2mhtml (open source MHT creator)
 	-SavePage (command line)
 	-email .eml files, it was not ment to work with but as this files have simular structure as .mht file mht2htm can, more or less succesful, to extract mail parts and show them in any browser. Tested OutlookExpres and SeaMonkey mail clients.
-Tested with same of most used CMSs, blogs, forums and popular sites. 
+Tested with same of most used CMSs, blogs, forums and popular sites.
 {I'm still looking for .mht files (examples I can examine) saved with Safari and Konqueror.}
 {No new languages - no one wanted to help :( }
 {Main function is now recursive (I'm forgot why I did that but I'm sure I had some reason).}
