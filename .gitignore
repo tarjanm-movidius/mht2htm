@@ -1,7 +1,12 @@
 *~
 *.bak
-backup
+*.o
+*.obj
+*.or
+*.ppu
 lib
+backup
 mht2htm
+mht2htm.exe
 gmon.out
 prof.txt

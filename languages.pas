@@ -82,7 +82,7 @@ const
   'base64 = binary file',                   //[i,43]base64 = binary file
 
   'Total',                   //[i,44]Total
-  'files.',                   //[i,45]files.
+  'files',                   //[i,45]files
   'Generated with',                    //[i,46]Generated with
   'Author',                   //[i,47]Author
   'Check for new version',                    //[i,48]Check for new version
@@ -268,7 +268,7 @@ const
   'base64 = binarni fajl',                   //[i,43]base64 = binary file
 
   'Ukupno',                   //[i,44]Total
-  'fajlova.',                   //[i,45]files.
+  'fajlova',                   //[i,45]files
   'Generisano pomocu',                    //[i,46]Generated with
   'Autor',                   //[i,47]Author
   'Potrazi novu verziju',                    //[i,48]Check for new version

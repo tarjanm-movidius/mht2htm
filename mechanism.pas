@@ -23,7 +23,9 @@ unit mechanism;
 
 {$mode objfpc}{$H+}
 {$inline+}
-//{$DEFINE CL}  //comment this if not command line program
+//{$DEFINE CL}      // uncomment this to compile command line program
+//{$DEFINE STARTME} // uncomment this line to generate _0_start_me.htm
+//{$DEFINE DEBUG}   // uncomment this line to enable debug mode
 
 interface
 uses
@@ -52,11 +54,12 @@ function MH2HT(SourDir,MHTFile,OutpDir:string):boolean;
 var
   table:array[0..63]of string[1];
   language_nr:integer;
+{$IFDEF STARTME}
   startme:textfile;
+{$ENDIF}
   megaNFOlist:TStringList;
   AddressCorrecting:integer; //Address Correction level. Contain value from slider
   DetailsLevel:integer;      //Detail output level. Contain value from slider
-  debugmode:boolean;
   silentmode:boolean;
 
 
@@ -236,24 +239,31 @@ end;
 function MH2HT(SourDir,MHTFile,OutpDir:string):boolean;
 var s,s1:string;
 
-  info,debugfile:textfile;
+  info:textfile;
+{$IFDEF DEBUG}
+  debugfile:textfile;
+{$ENDIF}
   firsthtmfound:boolean;  //is first html found?
   firstpart:integer; //position inside mht of first html
   i,j,i1,i2:integer;
   recog:string;
   temptime:TDateTime;
+{$IFDEF STARTME}
+  mht_subject,mht_date,mht_importance,mht_priority,mht_mime_version,
+  mht_product,mht_x_maf,mht_x_mime,mht_other_mht_creator,mht_from,
+  mht_thread_index,mht_type,mht_content_class,mht_file_creator:string;
+  mht_file_size:integer;
+  f:file of byte;
+  firsthtm:string;
+{$ENDIF}
   line_counter,lines:integer;
   header,part_header:boolean;
   tempboolean:boolean;
   GoodMHT:boolean;
 
     //next variables for header data from mht file
-  mht_from,mht_subject,mht_date,mht_importance,mht_priority,
-  mht_content_type,mht_mime_version,mht_type,mht_start_file:string;
   mht_content_transfer_encoding,mht_charset,mht_content_location,
-  mht_product,mht_x_maf,mht_x_mime,mht_thread_index,
-  mht_content_class,{mht_first_boundry,mht_last_boundry,}
-  mht_start_line,mht_other_mht_creator:string;
+  mht_content_type,mht_start_file,mht_start_line:string;
   parts,alternatives:integer;
 
   nizOrig,nizNew,nizNewName,nizType,nizCode:TStringList; //arrays of Original names, new (local) location+filename, only name, filetype and b64/qp
@@ -277,16 +287,12 @@ var s,s1:string;
 
 
   source:textfile;
-  f:file of byte;
-  mht_file_size:integer;
-  mht_file_creator:string;
 
 
 
   boundary:TStringList;
   boundarycount:integer;
   BaseURL:string;
-  firsthtm:string;
 
     //**********inner procedure***********************
 procedure ClearPartHeader;
@@ -433,15 +439,12 @@ begin
   s:=BaseURL+copy(URL,2,length(URL)-1)
   else
   s:=BaseURL+URL;
-// DEBUG MODE START
-  if debugmode then
-  begin
-    Writeln(debugfile,'oooooooooooooooooooooooooooooooooo');
-    Writeln(debugfile,'Extended local URL: '+URL);
-    Writeln(debugfile,'to full URL: '+s);
-    Writeln(debugfile,'oooooooooooooooooooooooooooooooooo');
-  end;
-// DEBUG MODE END
+{$IFDEF DEBUG}
+  Writeln(debugfile,'oooooooooooooooooooooooooooooooooo');
+  Writeln(debugfile,'Extended local URL: '+URL);
+  Writeln(debugfile,'to full URL: '+s);
+  Writeln(debugfile,'oooooooooooooooooooooooooooooooooo');
+{$ENDIF}
   ExtendToFullPath:=s;
 end;
 
@@ -468,6 +471,7 @@ begin
              //From: <  > extract start
       if pos('from:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,5);
         s:=Trim(s);
         if pos('<',s)<>0 then
@@ -477,6 +481,7 @@ begin
           s:= copy(s,1,pos('>',s)-1)
         end;
         mht_from:=s;
+{$ENDIF}
         found:=true;
       end
       else if pos('boundary',lowercase(s))=1 then
@@ -525,17 +530,19 @@ begin
         mht_start_file:=s;
         found:=true;
       end
-             //Start=<  > extract start
+             //Start=<  > extract end
              //Subject: extract start
       else if pos('subject:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,8);
         s:=Trim(s);
         s:=ExtractMultiline(s);
         mht_subject:=s;
+{$ENDIF}
         found:=true;
       end
-             //Subject: extract start
+             //Subject: extract end
              //Content-Location: extract start
       else if pos('content-location:',lowercase(s))=1 then
       begin
@@ -545,7 +552,7 @@ begin
         mht_content_location:=s;
         found:=true;
       end
-             //Content-Location: extract start
+             //Content-Location: extract end
              //Content-Transfer-Encoding: extract start
       else if pos('content-transfer-encoding:',lowercase(s))=1 then
       begin
@@ -554,76 +561,92 @@ begin
         mht_content_transfer_encoding:=s;
         found:=true;
       end
-             //Content-Transfer-Encoding: extract start
+             //Content-Transfer-Encoding: extract end
              //Date: extract start
       else if pos('date:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,5);
         s:=Trim(s);
         mht_date:=s;
+{$ENDIF}
         found:=true;
       end
-             //Date: extract start
+             //Date: extract end
              //Importance: extract start
       else if pos('importance:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,11);
         s:=Trim(s);
         mht_importance:=s;
+{$ENDIF}
         found:=true;
       end
              //Importance: extract end
              //thread-index: extract start (Save Page, b64 array)
       else if pos('thread-index:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,13);
         s:=Trim(s);
         mht_thread_index:=s;
+{$ENDIF}
         found:=true;
       end
              //Importance: extract end
              //Priority: extract start
       else if pos('priority:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,9);
         s:=Trim(s);
         mht_priority:=s;
+{$ENDIF}
         found:=true;
       end
              //Priority: extract end
              //Product: extract start (EZ Save MHT, link to homepage)
       else if pos('product:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,8);
         s:=Trim(s);
         mht_product:=s;
+{$ENDIF}
         found:=true;
       end
              //Product: extract end
              //X-MAF: extract start
       else if pos('x-maf:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,6);
         s:=Trim(s);
         mht_x_maf:=s;
+{$ENDIF}
         found:=true;
       end
              //X-MAF: extract end
              //X-MimeOLE: extract start
       else if pos('x-mimeole:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,10);
         s:=Trim(s);
         mht_x_mime:=s;
+{$ENDIF}
         found:=true;
       end
              //X-MimeOLE: extract end
              //MIME-Version: extract start
       else if pos('mime-version:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,13);
         s:=Trim(s);
         mht_mime_version:=s;
+{$ENDIF}
         found:=true;
       end
              //MIME-Version: extract end
@@ -652,10 +675,11 @@ begin
         mht_charset:=s;
         found:=true;
       end
-             //charset= extract start
+             //charset= extract end
              //type=" " extract start
       else if pos('type',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,4);
         s:=Trim(s);
         if s[1]='=' then Delete(s,1,1);
@@ -667,35 +691,39 @@ begin
           s:= copy(s,1,pos('"',s)-1)
         end;
         mht_type:=s;
+{$ENDIF}
         found:=true;
       end
              //type: extract end
-
              //Content-Class: extract start (SavePage only)
       else if pos('content-class:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,14);
         s:=Trim(s);
         mht_content_class:=s;
+{$ENDIF}
         found:=true;
       end
              //Content-Class: extract end
-             //This is a multi-part message in MIME format. - extract nothing but ount as header
+             //This is a multi-part message in MIME format. - extract nothing but count as header
       else if pos('this is a multi-part message in mime format.',lowercase(s))=1 then
       begin
         found:=true;
       end
       else if pos('this document is a web archive file.',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
+        mht_other_mht_creator:='MS Word';
+{$ENDIF}
         found:=true;
-        mht_other_mht_creator:='MS Word'
       end
              //x-mailer:
       else if pos('x-mailer:',lowercase(s))=1 then
       begin
+{$IFDEF STARTME}
         Delete(s,1,9);
         s:=Trim(s);
-        found:=true;
         if pos('aol webmail',lowercase(s))<>0 then
         mht_other_mht_creator:='(email) '+s
         else if pos('atmail',lowercase(s))<>0 then
@@ -729,8 +757,10 @@ begin
         else if pos('bat!',lowercase(s))<>0 then
         mht_other_mht_creator:='(email) '+s
         else if pos('yahoo',lowercase(s))<>0 then
-        mht_other_mht_creator:='(email) '+s
+        mht_other_mht_creator:='(email) '+s;
                 //else found:=false; //only during test
+{$ENDIF}
+        found:=true;
       end
              //x-mailer: end
 
@@ -738,19 +768,25 @@ begin
       else if (pos('(iplanet messaging server',lowercase(s))=1)
       or (pos('sun java system messaging server',lowercase(s))<>0) then
       begin
+{$IFDEF STARTME}
         if (pos('(',s)=1) and (pos(')',s)=length(s)) then
         s:=copy(s,2,length(s)-2);
         mht_other_mht_creator:='(email) '+s;
+{$ENDIF}
         found:=true;
       end
       else if (pos('((iplanet messaging server))',lowercase(s))=1) then
       begin
+{$IFDEF STARTME}
         mht_other_mht_creator:='(email) iPlanet Messaging Server';
+{$ENDIF}
         found:=true;
       end
       else if (pos('x-enigmail-version:',lowercase(s))=1) then
       begin
+{$IFDEF STARTME}
         mht_other_mht_creator:='(email) '+s;
+{$ENDIF}
         found:=true;
       end;
              //other mailing servers end
@@ -821,7 +857,7 @@ begin
               part_content_location[Parts]:=s;
               found:=true;
             end
-                //Content-Location: extract start
+                //Content-Location: extract end
                 //Content-Description:: extract start //??? newly found, not extracted yet
             else if pos('content-description:',ls)=1 then
             begin
@@ -831,7 +867,7 @@ begin
                    part_content_location[Parts]:=s;   }
               found:=true;
             end
-                //Content-Description:Content-Location: extract start
+                //Content-Description:Content-Location: extract end
                 //Content-Transfer-Encoding: extract start
             else if pos('content-transfer-encoding:',ls)=1 then
             begin
@@ -840,8 +876,7 @@ begin
               part_content_transfer_encoding[Parts]:=s;
               found:=true;
             end
-                //Content-Transfer-Encoding: extract start
-                //Content-Type: extract end
+                //Content-Transfer-Encoding: extract end
                 //Content-ID: <  > extract start
             else if pos('content-id:',ls)=1 then
             begin
@@ -941,13 +976,12 @@ begin
               part_name[Parts]:=s;
               found:=true;
             end;
+                //name= extract end
           end;
         end;
       end;
     end;
     // Optimization ends
-          //name= extract start
-//       end;
     s:=s1;
   until (s1=''); // or found;
   ExtractHeader:=found;
@@ -1199,8 +1233,8 @@ begin
       RepsoAdd(s,targetfilename,mainfile);
     end;
   end;
-// DEBUG MODE START
-  if debugmode and not(mainfile) then
+{$IFDEF DEBUG}
+  if not(mainfile) then
   begin
     Writeln(debugfile,'------------------------------------------------------------------------');
     Writeln(debugfile,'REPLACE for FILE: '+source);
@@ -1216,7 +1250,7 @@ begin
       Writeln(debugfile,'DEL : '+delo1[i]);
     end;
   end;
-// DEBUG MODE END
+{$ENDIF}
   source_parts.Free;
   target_parts.Free;
 end;
@@ -1304,24 +1338,21 @@ begin
                                                    //looking from main html file
                                                    //and parial addresses for all files
 
-// DEBUG MODE START
-  if debugmode then
+{$IFDEF DEBUG}
+  Writeln(debugfile,'------------------------------------------------------------------------');
+  Writeln(debugfile,'REPLACE MAIN FILE');
+  Writeln(debugfile,'------------------------------------------------------------------------');
+  for bri:=1 to repso.Count-1 do
   begin
-    Writeln(debugfile,'------------------------------------------------------------------------');
-    Writeln(debugfile,'REPLACE MAIN FILE');
-    Writeln(debugfile,'------------------------------------------------------------------------');
-    for bri:=1 to repso.Count-1 do
-    begin
-      Writeln(debugfile,'ORIG: '+repso[bri]);
-      Writeln(debugfile,'NEW : '+repsn[bri]);
-      Writeln(debugfile,'---------');
-    end;
-    for bri:=1 to delo.Count-1 do
-    begin
-      Writeln(debugfile,'DEL : '+repso[bri]);
-    end;
+    Writeln(debugfile,'ORIG: '+repso[bri]);
+    Writeln(debugfile,'NEW : '+repsn[bri]);
+    Writeln(debugfile,'---------');
   end;
-// DEBUG MODE END
+  for bri:=1 to delo.Count-1 do
+  begin
+    Writeln(debugfile,'DEL : '+repso[bri]);
+  end;
+{$ENDIF}
 
       //FOR TESTING ONLY Make Memo1 and Memo2 in Form1
       //Form1.Memo1.lines.AddStrings(repso);
@@ -1347,15 +1378,12 @@ begin
       Delete(s,i1+startlength,length(s1));
       Insert(s2,s,i1+startlength);
       i1:=Pos(starting+LowerCase(s1)+ending,LowerCase(s));
-// DEBUG MODE START
-      if debugmode then
-      begin
-        Writeln(debugfile,'<<<<<<<<<<<<<<<<<<<<');
-        Writeln(debugfile,'Replaced string: ['+starting+']'+LowerCase(s1)+'['+ending+']');
-        Writeln(debugfile,'With string: ['+starting+']'+LowerCase(s2)+'['+ending+']');
-        Writeln(debugfile,'<<<<<<<<<<<<<<<<<<<<');
-      end;
-// DEBUG MODE END
+{$IFDEF DEBUG}
+      Writeln(debugfile,'<<<<<<<<<<<<<<<<<<<<');
+      Writeln(debugfile,'Replaced string: ['+starting+']'+LowerCase(s1)+'['+ending+']');
+      Writeln(debugfile,'With string: ['+starting+']'+LowerCase(s2)+'['+ending+']');
+      Writeln(debugfile,'<<<<<<<<<<<<<<<<<<<<');
+{$ENDIF}
     end;
   end;
 end;
@@ -1368,14 +1396,11 @@ begin
   begin
     Delete(s,i1,length(s1));
     i1:=Pos(LowerCase(s1),LowerCase(s));
-// DEBUG MODE START
-    if debugmode then
-    begin
-      Writeln(debugfile,'^^^^^^^^^^^^^^^^^^^^');
-      Writeln(debugfile,'Deleted string: '+LowerCase(s1));
-      Writeln(debugfile,'^^^^^^^^^^^^^^^^^^^^');
-    end;
-// DEBUG MODE END
+{$IFDEF DEBUG}
+    Writeln(debugfile,'^^^^^^^^^^^^^^^^^^^^');
+    Writeln(debugfile,'Deleted string: '+LowerCase(s1));
+    Writeln(debugfile,'^^^^^^^^^^^^^^^^^^^^');
+{$ENDIF}
   end;
   Dellete:=s;
 end;
@@ -1823,26 +1848,28 @@ end;
 
 //***********
 begin
+{$IFDEF STARTME}
   mht_from:='';
   mht_subject:='';
   mht_date:='';
   mht_importance:='';
   mht_priority:='';
-  mht_content_type:='';
   mht_mime_version:='';
   mht_type:='';
-  mht_start_file:='';
-  mht_content_location:='';
-  mht_content_transfer_encoding:='';
-  mht_charset:='';
   mht_product:='';
   mht_x_maf:='';
   mht_x_mime:='';
   mht_thread_index:='';
   mht_content_class:='';
-    //mht_first_boundry:='';
-    //mht_last_boundry:='';
   mht_other_mht_creator:='';
+{$ENDIF}
+  mht_start_line:='';
+  mht_content_type:='';
+  mht_start_file:='';
+  mht_content_location:='';
+  mht_content_transfer_encoding:='';
+  mht_charset:='';
+  BaseURL:='';
   parts:=0;
   alternatives:=0;
 
@@ -1902,12 +1929,14 @@ begin
 
   GoodMHT:=true;
   temptime:=Now;
+{$IFDEF STARTME}
 
   AssignFile(f,SourDir+DirectorySeparator+MhtFile);
    //ToDo: remove reset and close ? or use fileutils
   reset(f);
   mht_file_size:=FileSize(f);
   CloseFile(f);
+{$ENDIF}
 
   AssignFile(info,OutpDir+DirectorySeparator+'_1_info.nfo');
   Rewrite(info);
@@ -1915,13 +1944,10 @@ begin
   Writeln(info,'---------------------------------------------');
   Writeln(info,language_strings[language_nr,51]+' [-] '+language_strings[language_nr,52]+' [-] '+language_strings[language_nr,53]+' [-] '+language_strings[language_nr,54]);
   Writeln(info,'');
-// DEBUG MODE START
-  if debugmode then
-  begin
-    AssignFile(debugfile,OutpDir+DirectorySeparator+'_2_debug.nfo');
-    Rewrite(debugfile);
-  end;
-// DEBUG MODEEND
+{$IFDEF DEBUG}
+  AssignFile(debugfile,OutpDir+DirectorySeparator+'_2_debug.nfo');
+  Rewrite(debugfile);
+{$ENDIF}
   AssignFile(source,SourDir+DirectorySeparator+MhtFile);
   Reset(source);
   header:=true;
@@ -1950,7 +1976,9 @@ begin
     begin
       Readln(source,s);
       line_counter:=line_counter+1;
+{$IFDEF STARTME}
       mht_other_mht_creator:='MS Word'
+{$ENDIF}
     end;
 
       //multiline joining
@@ -1974,7 +2002,7 @@ begin
       end;
       if header then
       begin
-               {header:=}ExtractHeader(s);
+        {header:=}ExtractHeader(s);
         if not(header) then
         begin
           parts:=1;
@@ -2053,6 +2081,7 @@ begin
      {$ELSE}
      //writeln(language_strings[language_nr,152]+chr(13)+'Sorry.Maybe in next version.');
      {$ENDIF}
+    MH2HT:=GoodMHT;
     exit;
   end;
    //1st pass end
@@ -2757,7 +2786,9 @@ begin
     begin
       firsthtmfound:=true;
       firstpart:=i;
+{$IFDEF STARTME}
       firsthtm:=part_local_name[i];
+{$ENDIF}
       BaseURL:=part_orig_path_full[i];
     end;
   end;
@@ -2768,7 +2799,9 @@ begin
   begin
     firsthtmfound:=true;
     firstpart:=i;
+{$IFDEF STARTME}
     firsthtm:=part_local_name[i];
+{$ENDIF}
     BaseURL:=part_orig_path_full[i];
     break;
   end;
@@ -2779,7 +2812,9 @@ begin
   begin
     firsthtmfound:=true;
     firstpart:=i;
+{$IFDEF STARTME}
     firsthtm:=part_local_name[i];
+{$ENDIF}
     BaseURL:=part_orig_path_full[i];
     break;
   end;
@@ -2790,7 +2825,9 @@ begin
   begin
     firsthtmfound:=true;
     firstpart:=i;
+{$IFDEF STARTME}
     firsthtm:=part_local_name[i];
+{$ENDIF}
     BaseURL:=part_orig_path_full[i];
     break;
   end;
@@ -2799,7 +2836,9 @@ begin
   begin
     firsthtmfound:=true;
     firstpart:=1;
+{$IFDEF STARTME}
     firsthtm:=part_local_name[1];
+{$ENDIF}
     BaseURL:=part_orig_path_full[1];
   end;
 
@@ -2811,14 +2850,11 @@ begin
   i2:=i2+Pos('\',Copy(BaseURL,i2+1,length(BaseURL)-i2));
   if i1>i2 then BaseURL:=Copy(BaseURL,1,i1)
   else BaseURL:=Copy(BaseURL,1,i2);
-// DEBUG MODE START
-  if debugmode then
-  begin
-    Writeln(debugfile,'---------------------------------------------');
-    Writeln(debugfile,'Base URL: '+BaseURL);
-    Writeln(debugfile,'---------------------------------------------');
-  end;
-// DEBUG MODE END
+{$IFDEF DEBUG}
+  Writeln(debugfile,'---------------------------------------------');
+  Writeln(debugfile,'Base URL: '+BaseURL);
+  Writeln(debugfile,'---------------------------------------------');
+{$ENDIF}
    //3rd pass end
 
    //4th pass start: extract
@@ -2858,6 +2894,7 @@ begin
 
   CloseFile(source);
 
+{$IFDEF STARTME}
          // try to determine mht file creator program - begin of
   mht_file_creator:=language_strings[language_nr,88];
   if (pos('ez save mht',lowercase(mht_from))<>0) or (pos('goupsoft',lowercase(mht_product))<>0) then mht_file_creator:=language_strings[language_nr,82]
@@ -2899,8 +2936,10 @@ writeln(startme,IntToStr(i)+language_strings[language_nr,98]+'<br>');
 Writeln(startme,'</div><div '+HTMLCSSStrings[5]+'>');
 Writeln(startme,language_strings[language_nr,99]+' <b>'+FloatToStrF((Now-temptime)*24*60*60,ffGeneral,5,5)+'</b> '+language_strings[language_nr,100]+'</div>');
          //detailed start
+{$ENDIF}
 if DetailsLevel>1 then
 begin
+{$IFDEF STARTME}
   Writeln(startme,'<div '+HTMLCSSStrings[6]+'><b>'+language_strings[language_nr,101]+'</b></div>');
   Writeln(startme,'<div '+HTMLCSSStrings[7]+'><b>'+language_strings[language_nr,102]+'</b><br>');
   Writeln(startme,language_strings[language_nr,103]+' <b>'+mht_from+'</b><br>');
@@ -2924,11 +2963,12 @@ begin
 
   Writeln(startme,'<div '+HTMLCSSStrings[8]+'>');
   for i:=1 to boundarycount do
-  Writeln(startme,language_strings[language_nr,121]+IntToStr(i)+': <b>'+boundary[i]+'</b><br>');
+    Writeln(startme,language_strings[language_nr,121]+IntToStr(i)+': <b>'+boundary[i]+'</b><br>');
   Writeln(startme,'</div>');
-
+{$ENDIF}
   for i:=1 to parts do
   begin
+{$IFDEF STARTME}
     if i mod 2 =0 then  Writeln(startme,'<div '+HTMLCSSStrings[9]+'>')
     else Writeln(startme,'<div '+HTMLCSSStrings[12]+'>');
     Writeln(startme,'<b>'+language_strings[language_nr,122]+IntToStr(i)+'</b></div>');
@@ -2986,23 +3026,28 @@ begin
     if i mod 2 =0 then  Writeln(startme,'<div '+HTMLCSSStrings[11]+'>')
     else Writeln(startme,'<div '+HTMLCSSStrings[14]+'>');
     Writeln(startme,language_strings[language_nr,142]+' <b><a href="'+part_local_name[i]+'">'+language_strings[language_nr,143]+'</a> '+language_strings[language_nr,144]+' <a href="'+part_local_name[i]+'" target="_blank">'+language_strings[language_nr,145]+'</a></b><br></div>');
-
+{$ENDIF}
     Writeln(info, part_orig_path_full[i]+' [-] '+part_content_type[i]+' [-] '+part_local_name[i]+' [-] '+part_encoding[i]);
   end;
 end;
          //detailed end
+{$IFDEF STARTME}
 Writeln(startme,'</code>');
 Writeln(startme,'</body></html>');
+CloseFile(startme);
+{$ENDIF}
+
 Writeln(info,'');
 Writeln(info,'---------------------------------------------');
-Writeln(info,language_strings[language_nr,44]+' '+IntToStr(Parts)+' '+language_strings[language_nr,45]);
-
-
-CloseFile(startme);
+{$IFDEF STARTME}
+Writeln(info,language_strings[language_nr,44]+' '+IntToStr(Parts)+' '+language_strings[language_nr,45]+'.');
+{$ELSE}
+Writeln(info,language_strings[language_nr,44]+' '+IntToStr(Parts)+' '+language_strings[language_nr,45]+', '+language_strings[language_nr,99]+' '+FloatToStrF((Now-temptime)*24*60*60,ffGeneral,5,5)+' '+language_strings[language_nr,100]);
+{$ENDIF}
 CloseFile(info);
-// DEBUG MODE START
-if debugmode then CloseFile(debugfile);
-// DEBUG MODE END
+{$IFDEF DEBUG}
+CloseFile(debugfile);
+{$ENDIF}
 
 repso.Free;
 repsn.Free;

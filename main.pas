@@ -721,7 +721,7 @@ begin
   set_language(0);
   AddressCorrecting:=4;
   DetailsLevel:=2;
-  debugmode:=false;
+//  debugmode:=false;
   SelectDirectoryDialog1.FileName:=ExtractFilePath(Application.ExeName);
   SelectDirectoryDialog2.FileName:=SelectDirectoryDialog1.FileName;
 end;
@@ -1221,7 +1221,7 @@ begin
   if Edit1.text='debug mode' then
   begin
     Label23.visible:=not(Label23.visible);
-    debugmode:=Label23.visible;
+//    debugmode:=Label23.visible;
     Edit1.text:='';
     Beep;
   end;
